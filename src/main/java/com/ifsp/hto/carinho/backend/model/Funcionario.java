@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Funcionario {
@@ -16,7 +18,13 @@ public class Funcionario {
 	
 	private String cargo;
 	
-	private String carteira_identidade;
+	private String carteiraIdentidade;
+	
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "fkLoginId", referencedColumnName = "id")
+	private Login login;
 
 	public long getId() {
 		return id;
@@ -42,12 +50,14 @@ public class Funcionario {
 		this.cargo = cargo;
 	}
 
-	public String getCarteira_identidade() {
-		return carteira_identidade;
+	public String getCarteiraIdentidade() {
+		return carteiraIdentidade;
 	}
 
-	public void setCarteira_identidade(String carteira_identidade) {
-		this.carteira_identidade = carteira_identidade;
+	public void setCarteiraIdentidade(String carteiraIdentidade) {
+		this.carteiraIdentidade = carteiraIdentidade;
 	}
+
+	
 
 }

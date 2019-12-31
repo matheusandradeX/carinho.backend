@@ -37,11 +37,11 @@ public class Aluno implements Serializable {
 	}
 
 	public Date getDataDascimento() {
-		return dataDascimento;
+		return dataNascimento;
 	}
 
 	public void setDataDascimento(Date dataDascimento) {
-		this.dataDascimento = dataDascimento;
+		this.dataNascimento = dataDascimento;
 	}
 
 	public String getTurma() {
@@ -74,7 +74,7 @@ public class Aluno implements Serializable {
 	
 	private String nome;
 	
-	private Date dataDascimento;
+	private Date dataNascimento;
 	
 	private String turma ;
 	
