@@ -7,9 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
 
 @Entity
 public class Responsavel {
@@ -22,8 +21,17 @@ public class Responsavel {
 	private int CarteiraIdentidade;
 	
 	
-
+	@ManyToOne
+	@JoinColumn(name="fk_aluno_id")
+	private Aluno aluno;
 	
+	
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
 	
 	
 	public long getId() {

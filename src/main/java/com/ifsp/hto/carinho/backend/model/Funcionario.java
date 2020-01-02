@@ -23,7 +23,7 @@ public class Funcionario {
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "fkLoginId", referencedColumnName = "id")
+	@JoinColumn(name = "fk_login_id")
 	private Login login;
 
 	public long getId() {
