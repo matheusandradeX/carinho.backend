@@ -35,6 +35,17 @@ public class AlunoResource {
 		return alunoRepository.findById(id);
 	}
 	
+@GetMapping("alunos/{nome}")
+public List<Aluno> listaNome(@PathVariable(value = "nome")String nome){
+	return alunoRepository.findByNome(nome);
+	
+}
+	
+	
+	
+	
+	
+	
 	@PostMapping("/aluno")
 	public Aluno salvaAluno(@RequestBody Aluno aluno) {
 		return alunoRepository.save(aluno);

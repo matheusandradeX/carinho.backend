@@ -3,6 +3,7 @@ package com.ifsp.hto.carinho.backend.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,37 +37,52 @@ public class Aluno implements Serializable {
 		this.nome = nome;
 	}
 
-	public Date getDataDascimento() {
+
+
+
+
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+
+
+
+
+	public int getIdade() {
+		return idade;
+	}
+
+	public void setIdade(int idade) {
+		this.idade = idade;
+	}
+
+
+
+	public Date getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataDascimento(Date dataDascimento) {
-		this.dataNascimento = dataDascimento;
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
-	public String getTurma() {
-		return turma;
-	}
 
-	public void setTurma(String turma) {
-		this.turma = turma;
-	}
-
-	public String getPeriodo() {
-		return periodo;
-	}
-
-	public void setPeriodo(String periodo) {
-		this.periodo = periodo;
-	}
 
 	public int getCarteiraIdentidade() {
-		return CarteiraIdentidade;
+		return carteiraIdentidade;
 	}
 
 	public void setCarteiraIdentidade(int carteiraIdentidade) {
-		CarteiraIdentidade = carteiraIdentidade;
+		this.carteiraIdentidade = carteiraIdentidade;
 	}
+
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -74,13 +90,16 @@ public class Aluno implements Serializable {
 	
 	private String nome;
 	
+	@Column(length=255)
+	private int idade;
+		
+	private String sexo;
+	
 	private Date dataNascimento;
 	
-	private String turma ;
+	private int carteiraIdentidade;
 	
-	private String periodo;
-	
-	private int CarteiraIdentidade;
+
 	
 	
 	
