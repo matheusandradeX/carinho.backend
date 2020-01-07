@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.web.multipart.MultipartFile;
+
 
 
 
@@ -84,6 +86,14 @@ public class Aluno implements Serializable {
 
 
 
+	public Byte[] getFoto() {
+		return foto;
+	}
+
+
+
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -99,7 +109,8 @@ public class Aluno implements Serializable {
 	
 	private int carteiraIdentidade;
 	
-
+	@Column(columnDefinition = "LONGBLOB")
+	private Byte[] foto;
 	
 	
 	
