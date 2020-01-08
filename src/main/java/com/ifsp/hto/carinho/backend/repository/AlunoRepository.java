@@ -10,10 +10,10 @@ import com.ifsp.hto.carinho.backend.model.Aluno;
 
 public interface AlunoRepository extends JpaRepository<Aluno, Long>{
 
-		Aluno findById(long id);
-	
+	Aluno findById(long id);
+
 	@Query(value = "SELECT * FROM `aluno` WHERE nome LIKE :nomeA%", nativeQuery = true)
-		List<Aluno> findByNome (@Param("nomeA")String nome);
-	
-	
+	List<Aluno> findByNome (@Param("nomeA")String nome);
+
+	Aluno foto(byte[] arquivo);
 }

@@ -11,23 +11,27 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class Disco {
-	
-	
-	
-//	@Value("${carinho.disco.raiz}")
+
+
+
+	//	@Value("${carinho.disco.raiz}")
 	private String raiz = System.getProperty("user.home");
-	
+
 	@Value("${carinho.disco.diretorio}")
 	private String diretorioFotos ;
-	
+
 	public void salvarFoto(MultipartFile foto) {
+
+
+
+
 		this.salvar(this.diretorioFotos, foto);
 	}
-	
+
 	public void salvar(String diretorio, MultipartFile arquivo) {
 		Path diretorioPath = Paths.get(this.raiz, diretorio);
 		Path arquivoPath = diretorioPath.resolve(arquivo.getOriginalFilename());
-		
+
 		try {
 			Files.createDirectories(diretorioPath);
 			arquivo.transferTo(arquivoPath.toFile());			

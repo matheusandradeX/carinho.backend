@@ -3,16 +3,16 @@ package com.ifsp.hto.carinho.backend.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 import org.springframework.web.multipart.MultipartFile;
-
-
-
 
 
 @Entity
@@ -22,7 +22,7 @@ public class Aluno implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	public long getId() {
 		return id;
 	}
@@ -39,11 +39,6 @@ public class Aluno implements Serializable {
 		this.nome = nome;
 	}
 
-
-
-
-
-
 	public String getSexo() {
 		return sexo;
 	}
@@ -51,10 +46,6 @@ public class Aluno implements Serializable {
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-
-
-
-
 
 	public int getIdade() {
 		return idade;
@@ -64,8 +55,6 @@ public class Aluno implements Serializable {
 		this.idade = idade;
 	}
 
-
-
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
@@ -73,8 +62,6 @@ public class Aluno implements Serializable {
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-
-
 
 	public int getCarteiraIdentidade() {
 		return carteiraIdentidade;
@@ -84,36 +71,49 @@ public class Aluno implements Serializable {
 		this.carteiraIdentidade = carteiraIdentidade;
 	}
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 
+	private String nome;
 
-	public Byte[] getFoto() {
+	@Column(length=255)
+	private int idade;
+
+	private String sexo;
+
+	private Date dataNascimento;
+
+	private int carteiraIdentidade;
+
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
+	private byte[] foto;
+
+	public byte[] getFoto() {
 		return foto;
+	}
+
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+
+	public Aluno () {
+		
+	}
+	
+	public Aluno(String nome, int idade, String sexo, int carteiraIdentidade, byte[] foto) {
+		super();
+		this.nome = nome;
+		this.idade = idade;
+		this.sexo = sexo;
+		
+		this.carteiraIdentidade = carteiraIdentidade;
+		this.foto = foto;
 	}
 
 
 
-
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-	
-	private String nome;
-	
-	@Column(length=255)
-	private int idade;
-		
-	private String sexo;
-	
-	private Date dataNascimento;
-	
-	private int carteiraIdentidade;
-	
-	@Column(columnDefinition = "LONGBLOB")
-	private Byte[] foto;
-	
-	
-	
 
 
 }

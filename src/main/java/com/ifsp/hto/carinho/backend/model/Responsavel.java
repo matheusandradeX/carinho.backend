@@ -12,28 +12,28 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Responsavel {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String nome;
 	private Date dataNascimento;
 	private int CarteiraIdentidade;
-	
-	
+
+
 	@ManyToOne
 	@JoinColumn(name="fk_aluno_id")
 	private Aluno aluno;
-	
-	
+
+
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	
-	
+
+
 	public long getId() {
 		return id;
 	}
@@ -58,6 +58,6 @@ public class Responsavel {
 	public void setCarteiraIdentidade(int carteiraIdentidade) {
 		CarteiraIdentidade = carteiraIdentidade;
 	}
-	
+
 
 }

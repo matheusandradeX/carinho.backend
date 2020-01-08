@@ -1,6 +1,7 @@
 package com.ifsp.hto.carinho.backend.resources;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,20 +18,29 @@ import com.ifsp.hto.carinho.backend.util.Disco;
 @RestController
 @RequestMapping("/fotos")
 public class FotoResources {
-		Aluno alunos = new Aluno();
-	@Autowired(required = true)
+
+
+
 	Disco disco = new Disco();
-	@Autowired(required = true)
-	AlunoRepository aluno ;
-	
+
+
+	byte[] teste;
+
 	@PostMapping
 	public void upload(@RequestParam MultipartFile foto) {
 		disco.salvarFoto(foto);
-		
-		
-		
-		
+		try {
+
+			teste= foto.getBytes();
+
+		} catch (Exception e) {
+
+		}
+
+
 	}
-	
-	
+
+
+
+
 }

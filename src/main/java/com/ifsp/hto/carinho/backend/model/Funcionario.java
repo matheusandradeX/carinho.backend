@@ -9,19 +9,19 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Funcionario {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
+
 	private String nome;
-	
+
 	private String cargo;
-	
+
 	private String carteiraIdentidade;
-	
-	
-	
+
+
+
 	@ManyToOne
 	@JoinColumn(name = "fk_login_id")
 	private Login login;
@@ -58,6 +58,6 @@ public class Funcionario {
 		this.carteiraIdentidade = carteiraIdentidade;
 	}
 
-	
+
 
 }

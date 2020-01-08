@@ -18,7 +18,7 @@ public class Login implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
+
 	public long getId() {
 		return id;
 	}
@@ -28,9 +28,9 @@ public class Login implements Serializable {
 	}
 
 	String usuario;
-	
+
 	String senha;
-	
+
 	String email;
 
 	public String getUsuario() {
@@ -56,6 +56,6 @@ public class Login implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
+
+
 }
