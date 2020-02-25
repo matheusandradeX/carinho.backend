@@ -72,22 +72,6 @@ public class AlunoResource {
 	}
 
 
-/*
-	@PostMapping(consumes = "multipart/form-data")
-	public Aluno upload(@RequestBody Aluno alunoNovo ,MultipartFile foto) {
-		
-		byte[] arquivo ; 
-		
-		try {
-			arquivo = foto.getBytes();
-			
-			Aluno teste = new Aluno(alunoNovo.getNome(),alunoNovo.getIdade(),alunoNovo.getSexo(),alunoNovo.getCarteiraIdentidade(),arquivo);
-			return alunoRepository.save(teste);
-		} catch (Exception e) {
-			throw new RuntimeException("Problemas na tentativa de salvar arquivo.", e);
-		}
-		
-	*/
 
 
 @PostMapping
