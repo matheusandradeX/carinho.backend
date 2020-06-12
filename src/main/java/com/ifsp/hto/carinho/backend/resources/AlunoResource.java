@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,8 +40,8 @@ public class AlunoResource {
 
 
 	@GetMapping("alunos")
-	public List<Aluno> listaAlunos(){
-		return alunoRepository.findAll();
+	public Page<Aluno> listaAlunos(Pageable pageable){
+		return alunoRepository.findAll(pageable);
 	}
 
 	@GetMapping("aluno/{id}")
