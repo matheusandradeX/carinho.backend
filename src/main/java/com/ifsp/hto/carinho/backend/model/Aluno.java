@@ -2,6 +2,8 @@ package com.ifsp.hto.carinho.backend.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -10,7 +12,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -71,9 +76,9 @@ public class Aluno implements Serializable {
 		this.carteiraIdentidade = carteiraIdentidade;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
 	private String nome;
 
@@ -85,11 +90,19 @@ public class Aluno implements Serializable {
 	private Date dataNascimento;
 
 	private int carteiraIdentidade;
+	
 
+	
+	
+	
+	
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] foto;
 
+	
+	
+	
 	public byte[] getFoto() {
 		return foto;
 	}
@@ -107,9 +120,9 @@ public class Aluno implements Serializable {
 		this.nome = nome;
 		this.idade = idade;
 		this.sexo = sexo;
-		
 		this.carteiraIdentidade = carteiraIdentidade;
 		this.foto = foto;
+		
 	}
 
 

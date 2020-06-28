@@ -1,13 +1,18 @@
 package com.ifsp.hto.carinho.backend.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 
 @Entity
@@ -16,14 +21,21 @@ public class Responsavel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private String nome;
+	private String nomeResp;
 	private Date dataNascimento;
 	private int CarteiraIdentidade;
+	
+	
+	
+	//@ManyToOne
+	//@JoinColumn(name="fk_aluno_id")
+	//@Fetch(FetchMode.JOIN)
+	//private Aluno aluno;
 
+	//@Query(value = "SELECT * from aluno INNER JOIN responsavel on aluno.id = responsavel.fk_aluno_id", nativeQuery = true)
+	
+	//@JoinColumn(name="fk_aluno_id")
 
-	@ManyToOne
-	@JoinColumn(name="fk_aluno_id")
-	private Aluno aluno;
 
 
 	public Date getDataNascimento() {
@@ -40,12 +52,7 @@ public class Responsavel {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+	
 	public Date getDataDascimento() {
 		return dataNascimento;
 	}
@@ -57,6 +64,12 @@ public class Responsavel {
 	}
 	public void setCarteiraIdentidade(int carteiraIdentidade) {
 		CarteiraIdentidade = carteiraIdentidade;
+	}
+	public String getNomeResp() {
+		return nomeResp;
+	}
+	public void setNomeResp(String nomeResp) {
+		this.nomeResp = nomeResp;
 	}
 
 
