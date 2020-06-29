@@ -2,6 +2,9 @@ package com.ifsp.hto.carinho.backend.dto;
 
 public interface ResponsavelDTO {
 	
+	/**
+	 * Interface para objeto dto (Data Transfer Object) de informação do responsavel 
+	 */
 	
 	public int getId();
 	

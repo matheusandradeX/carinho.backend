@@ -8,16 +8,27 @@ public class FormWrapper {
 	
 	private MultipartFile image;
     private String nome;
-    private String sexo;
-    public String getSexo() {
-		return sexo;
-	}
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
+    private TipoGenero genero;
 	private int idade;
     private int carteiraIdentidade;
    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+	public TipoGenero getGenero() {
+		return genero;
+	}
+	public void setGenero(TipoGenero genero) {
+		this.genero = genero;
+	}
 	public int getCarteiraIdentidade() {
 		return carteiraIdentidade;
 	}

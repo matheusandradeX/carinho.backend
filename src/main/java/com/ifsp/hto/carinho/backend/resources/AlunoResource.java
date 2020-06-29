@@ -1,5 +1,6 @@
 package com.ifsp.hto.carinho.backend.resources;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ifsp.hto.carinho.backend.dto.ResponsavelDTO;
 import com.ifsp.hto.carinho.backend.dto.TesteDTO;
@@ -59,7 +61,7 @@ public List<TesteDTO> left(){
 	}
 
 	
-	@GetMapping("left/{id}")
+	@GetMapping("responsavel/{id}")
 	public List<ResponsavelDTO> responsavel(@PathVariable(value ="id") int id){
 		return alunoRepository.responsavel(id);
 	}
@@ -94,14 +96,21 @@ public List<TesteDTO> left(){
 		return alunoRepository.save(aluno);
 	}
 
+/*
+	@PostMapping("/testefoto")
+	public void upload2(Aluno aluno,MultipartFile foto) throws IOException {
+		Aluno novoAluno = new Aluno(aluno.getNome(),aluno.getFoto());
+		alunoRepository.save(novoAluno);
+	}
 
-
-
+	 */
+	
+	
 @PostMapping
 	public void upload (@ModelAttribute FormWrapper modelo) {
 	try {
 		
-		Aluno novoAluno = new Aluno (modelo.getNome(),modelo.getIdade(), modelo.getSexo(), modelo.getCarteiraIdentidade(),modelo.getImage().getBytes());
+		Aluno novoAluno = new Aluno (modelo.getNome(),modelo.getIdade(), modelo.getGenero(), modelo.getCarteiraIdentidade(),modelo.getImage().getBytes());
 		alunoRepository.save(novoAluno);
 	} catch (Exception e) {
 		throw new RuntimeException("Problemas em salvar o Aluno.", e);
@@ -110,7 +119,7 @@ public List<TesteDTO> left(){
 	}
 
 
-	 
+	
 
 
 

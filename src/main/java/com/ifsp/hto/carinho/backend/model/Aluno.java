@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +19,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Type;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -44,12 +47,14 @@ public class Aluno implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getSexo() {
-		return sexo;
+	
+
+	public TipoGenero getGenero() {
+		return genero;
 	}
 
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
+	public void setGenero(TipoGenero genero) {
+		this.genero = genero;
 	}
 
 	public int getIdade() {
@@ -85,16 +90,18 @@ public class Aluno implements Serializable {
 	@Column(length=255)
 	private int idade;
 
-	private String sexo;
+	
+	
+	@Enumerated(value = EnumType.STRING)
+	private TipoGenero genero;
 
+	
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private Date dataNascimento;
 
 	private int carteiraIdentidade;
 	
 
-	
-	
-	
 	
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
@@ -115,18 +122,27 @@ public class Aluno implements Serializable {
 		
 	}
 	
-	public Aluno(String nome, int idade, String sexo, int carteiraIdentidade, byte[] foto) {
-		super();
+	public Aluno(String nome, int idade, TipoGenero genero, int carteiraIdentidade, byte[] foto) {
+		
 		this.nome = nome;
 		this.idade = idade;
-		this.sexo = sexo;
+		this.genero = genero;
 		this.carteiraIdentidade = carteiraIdentidade;
 		this.foto = foto;
 		
 	}
 
-
-
+public Aluno(String nome, int idade, TipoGenero genero, int carteiraIdentidade, byte[] foto,Date dataNascimento) {
+		this.nome = nome;
+		this.idade = idade;
+		this.genero = genero;
+		this.carteiraIdentidade = carteiraIdentidade;
+		this.foto = foto;
+		this.dataNascimento = dataNascimento;
+		
+	}
+	
+	
 
 
 }
