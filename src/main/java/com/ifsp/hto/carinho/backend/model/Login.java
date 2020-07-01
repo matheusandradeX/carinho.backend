@@ -57,5 +57,4 @@ public class Login implements Serializable {
 		this.email = email;
 	}
 
-
 }

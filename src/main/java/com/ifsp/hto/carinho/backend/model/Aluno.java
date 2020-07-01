@@ -22,6 +22,8 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.Type;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 @Entity
 public class Aluno implements Serializable {
@@ -34,7 +36,7 @@ public class Aluno implements Serializable {
 	public long getId() {
 		return id;
 	}
-
+	
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -46,8 +48,6 @@ public class Aluno implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	
 
 	public TipoGenero getGenero() {
 		return genero;
@@ -81,35 +81,27 @@ public class Aluno implements Serializable {
 		this.carteiraIdentidade = carteiraIdentidade;
 	}
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
 	private String nome;
 
-	@Column(length=255)
+	@Column(length = 255)
 	private int idade;
 
-	
-	
 	@Enumerated(value = EnumType.STRING)
 	private TipoGenero genero;
 
-	
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	@JsonFormat(pattern = "dd/MM/yyy", shape = Shape.STRING)
 	private Date dataNascimento;
 
 	private int carteiraIdentidade;
-	
 
-	
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] foto;
 
-	
-	
-	
 	public byte[] getFoto() {
 		return foto;
 	}
@@ -118,31 +110,39 @@ public class Aluno implements Serializable {
 		this.foto = foto;
 	}
 
-	public Aluno () {
-		
+	public Aluno() {
+
 	}
-	
+
 	public Aluno(String nome, int idade, TipoGenero genero, int carteiraIdentidade, byte[] foto) {
-		
+
 		this.nome = nome;
 		this.idade = idade;
 		this.genero = genero;
 		this.carteiraIdentidade = carteiraIdentidade;
 		this.foto = foto;
-		
+
 	}
 
-public Aluno(String nome, int idade, TipoGenero genero, int carteiraIdentidade, byte[] foto,Date dataNascimento) {
+	public Aluno(String nome, int idade, TipoGenero genero, int carteiraIdentidade, byte[] foto, Date dataNascimento) {
 		this.nome = nome;
 		this.idade = idade;
 		this.genero = genero;
 		this.carteiraIdentidade = carteiraIdentidade;
 		this.foto = foto;
 		this.dataNascimento = dataNascimento;
-		
+
 	}
 	
 	
+	public Aluno(String nome, int idade, Date dataNascimento) {
+		this.nome = nome;
+		this.idade = idade;
+		this.dataNascimento = dataNascimento;
 
+	}
+	
+	
+	
 
 }

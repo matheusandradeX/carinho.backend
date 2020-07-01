@@ -1,6 +1,5 @@
 package com.ifsp.hto.carinho.backend.resources;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,64 +15,43 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
+import com.ifsp.hto.carinho.backend.dto.ControleAlunoDTO;
 import com.ifsp.hto.carinho.backend.dto.ResponsavelDTO;
-import com.ifsp.hto.carinho.backend.dto.TesteDTO;
 import com.ifsp.hto.carinho.backend.model.Aluno;
+import com.ifsp.hto.carinho.backend.model.ControleAluno;
 import com.ifsp.hto.carinho.backend.model.FormWrapper;
 import com.ifsp.hto.carinho.backend.repository.AlunoRepository;
-
+import com.ifsp.hto.carinho.backend.repository.ControleAlunoRepository;
 
 @RestController
-@RequestMapping(value ="/api")
+@RequestMapping(	value = "/api")
 @CrossOrigin(origins = "*")
 public class AlunoResource {
-
-	
-	
 
 	@Autowired(required = true)
 	AlunoRepository alunoRepository;
 
-@GetMapping("tudo")
-	public List<Aluno> listaTudo(){
-		return alunoRepository.findByResponsavel();
-}
-	
+	@Autowired(required = true)
+	ControleAlunoRepository controleAlunoRepository;
 
-//@GetMapping("/dept/employees/left")
-//public ResponseEntity<List<DeptEmpLDto>> getDeptEmployeesLeftJoin() {
-//	return new ResponseEntity<List<DeptEmpDto>>(joinQueryService.getDeptEmployeesLeftJoin(), HttpStatus.OK);
-//}
-
-
-@GetMapping("left")
-public List<TesteDTO> left(){
-	return alunoRepository.teste();
-}
-
-
-	
 	@GetMapping("alunos")
-	public Page<Aluno> listaAlunos(Pageable pageable){
+	public Page<Aluno> listaAlunos(Pageable pageable) {
 		return alunoRepository.findAll(pageable);
 	}
 
-	
 	@GetMapping("responsavel/{id}")
-	public List<ResponsavelDTO> responsavel(@PathVariable(value ="id") int id){
+	public List<ResponsavelDTO> responsavel(@PathVariable(value = "id") int id) {
 		return alunoRepository.responsavel(id);
 	}
-	
-	
+
 	@GetMapping("aluno/{id}")
-	public Aluno listaAlunoUnico(@PathVariable(value="id")long id) {
+	public Aluno listaAlunoUnico(@PathVariable(value = "id") long id) {
 		return alunoRepository.findById(id);
 	}
 
 	@GetMapping("alunos/{nome}")
-	public List<Aluno> listaNome(@PathVariable(value = "nome")String nome){
+	public List<Aluno> listaNome(@PathVariable(value = "nome") String nome) {
 		return alunoRepository.findByNome(nome);
 
 	}
@@ -87,47 +65,62 @@ public List<TesteDTO> left(){
 	public void deletaAluno(@PathVariable(value = "id") long id) {
 		alunoRepository.delete(alunoRepository.findById(id));
 	}
+
 	@DeleteMapping("/aluno")
 	public void deletaAluno(@RequestBody Aluno aluno) {
 		alunoRepository.delete(aluno);
 	}
+
 	@PutMapping("/aluno")
 	public Aluno atualizaAluno(@RequestBody Aluno aluno) {
 		return alunoRepository.save(aluno);
 	}
 
-/*
-	@PostMapping("/testefoto")
-	public void upload2(Aluno aluno,MultipartFile foto) throws IOException {
-		Aluno novoAluno = new Aluno(aluno.getNome(),aluno.getFoto());
-		alunoRepository.save(novoAluno);
+	@PutMapping("/controle")
+	public ControleAluno lista(@RequestBody ControleAluno controleAluno) {
+		return controleAlunoRepository.save(controleAluno);
+
+	}
+	
+	@GetMapping("controle")
+	public List<ControleAluno> listaHorario() {
+		return controleAlunoRepository.findAll();
 	}
 
+	/*
+	 * @PutMapping("/registro") public Aluno atualizaAluno(@RequestParam Long
+	 * id, @RequestBody TipoHorario tipoHorario) {
+	 * 
+	 * ControleAlunos novoControleAluno = new ControleAlunos();
+	 * 
+	 * novoControleAluno.setHorario(new Date());
+	 * novoControleAluno.setTipoHorario(tipoHorario);
+	 * 
+	 * 
+	 * Optional<Aluno> aluno = alunoRepository.findById(id);
+	 * 
+	 * 
+	 * 
+	 * novoControleAluno.setAluno(aluno);
+	 * 
+	 * 
+	 * 
+	 * 
+	 * return controleAlunos.save(); }
+	 * 
 	 */
-	
-	
-@PostMapping
-	public void upload (@ModelAttribute FormWrapper modelo) {
-	try {
-		
-		Aluno novoAluno = new Aluno (modelo.getNome(),modelo.getIdade(), modelo.getGenero(), modelo.getCarteiraIdentidade(),modelo.getImage().getBytes());
-		alunoRepository.save(novoAluno);
-	} catch (Exception e) {
-		throw new RuntimeException("Problemas em salvar o Aluno.", e);
-	}
+
+	@PostMapping
+	public void upload(@ModelAttribute FormWrapper modelo) {
+		try {
+
+			Aluno novoAluno = new Aluno(modelo.getNome(), modelo.getIdade(), modelo.getGenero(),
+					modelo.getCarteiraIdentidade(), modelo.getImage().getBytes());
+			alunoRepository.save(novoAluno);
+		} catch (Exception e) {
+			throw new RuntimeException("Problemas em salvar o Aluno.", e);
+		}
 
 	}
-
-
-	
-
-
-
-
-
-
-
-
-
 
 }

@@ -6,6 +6,5 @@ import com.ifsp.hto.carinho.backend.model.Login;
 
 public interface LoginRepository extends JpaRepository<Login, Long> {
 
-	
-		Login findById(long id);
+	Login findById(long id);
 }

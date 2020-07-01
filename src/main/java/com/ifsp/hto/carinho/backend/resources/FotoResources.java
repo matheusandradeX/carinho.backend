@@ -19,10 +19,7 @@ import com.ifsp.hto.carinho.backend.util.Disco;
 @RequestMapping("/fotos")
 public class FotoResources {
 
-
-
 	Disco disco = new Disco();
-
 
 	byte[] teste;
 
@@ -31,16 +28,12 @@ public class FotoResources {
 		disco.salvarFoto(foto);
 		try {
 
-			teste= foto.getBytes();
+			teste = foto.getBytes();
 
 		} catch (Exception e) {
 
 		}
 
-
 	}
-
-
-
 
 }

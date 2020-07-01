@@ -13,51 +13,41 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class AlunoResponsavel {
-	
-	 	@Id
-	    @GeneratedValue(strategy = GenerationType.AUTO)
-	    private Long id;
-	 
-	    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	    @JoinColumn(name = "nome", referencedColumnName = "id", nullable = false)
-	    private Aluno aluno;
 
-	    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	    @JoinColumn(name = "nome_resp", referencedColumnName = "id", nullable = false)
-	    private Responsavel responsavel;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-		public Long getId() {
-			return id;
-		}
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "nome", referencedColumnName = "id", nullable = false)
+	private Aluno aluno;
 
-		public void setId(Long id) {
-			this.id = id;
-		}
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "nome_resp", referencedColumnName = "id", nullable = false)
+	private Responsavel responsavel;
 
-		public Aluno getAluno() {
-			return aluno;
-		}
+	public Long getId() {
+		return id;
+	}
 
-		public void setAluno(Aluno aluno) {
-			this.aluno = aluno;
-		}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-		public Responsavel getResponsavel() {
-			return responsavel;
-		}
+	public Aluno getAluno() {
+		return aluno;
+	}
 
-		public void setResponsavel(Responsavel responsavel) {
-			this.responsavel = responsavel;
-		}
-	    
-	    
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
 
-	
-	    
-	
+	public Responsavel getResponsavel() {
+		return responsavel;
+	}
 
+	public void setResponsavel(Responsavel responsavel) {
+		this.responsavel = responsavel;
+	}
 
 }
-
-
-

@@ -20,8 +20,6 @@ public class Funcionario {
 
 	private String carteiraIdentidade;
 
-
-
 	@ManyToOne
 	@JoinColumn(name = "fk_login_id")
 	private Login login;
@@ -57,7 +55,5 @@ public class Funcionario {
 	public void setCarteiraIdentidade(String carteiraIdentidade) {
 		this.carteiraIdentidade = carteiraIdentidade;
 	}
-
-
 
 }
