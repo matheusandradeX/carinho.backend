@@ -21,5 +21,9 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 
 	@Query(value = "SELECT * FROM aluno", nativeQuery = true)
 	List<Aluno> fetchEmpDeptDataInnerJoin2();
+	
+	//Aluno findByNumero(long id);
+
+	//boolean existsByNumero(Long id);
 
 }

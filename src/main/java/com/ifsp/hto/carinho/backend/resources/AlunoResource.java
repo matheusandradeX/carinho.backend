@@ -1,5 +1,6 @@
 package com.ifsp.hto.carinho.backend.resources;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +15,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ifsp.hto.carinho.backend.dto.ControleAlunoDTO;
 import com.ifsp.hto.carinho.backend.dto.ResponsavelDTO;
 import com.ifsp.hto.carinho.backend.model.Aluno;
 import com.ifsp.hto.carinho.backend.model.ControleAluno;
 import com.ifsp.hto.carinho.backend.model.FormWrapper;
+import com.ifsp.hto.carinho.backend.model.TipoHorario;
 import com.ifsp.hto.carinho.backend.repository.AlunoRepository;
 import com.ifsp.hto.carinho.backend.repository.ControleAlunoRepository;
 
 @RestController
-@RequestMapping(	value = "/api")
+@RequestMapping(value = "/api")
 @CrossOrigin(origins = "*")
 public class AlunoResource {
 
@@ -76,12 +78,40 @@ public class AlunoResource {
 		return alunoRepository.save(aluno);
 	}
 
-	@PutMapping("/controle")
-	public ControleAluno lista(@RequestBody ControleAluno controleAluno) {
+	@PostMapping("/controle")
+	public ControleAluno lista(@RequestParam("fk_aluno") long fk_aluno,	@RequestParam("tipoHorario") TipoHorario tipoHorario) {
+
+		// controleAlunoRepository.findOne(boolean<fk_aluno>);
+
+		// ControleAluno controleAluno = new ControleAluno(new
+		// Date(),tipoHorario,fk_aluno);
+
+		ControleAluno controleAluno = new ControleAluno(new Date(),tipoHorario,alunoRepository.findById(fk_aluno));
+
+			
+
+
+
+		
+
 		return controleAlunoRepository.save(controleAluno);
 
 	}
-	
+
+	/*
+	 * 
+	 * 
+	 * @PostMapping("novo_registro") public ModelAndView
+	 * Registrar(@RequestParam("numSd") int num, @RequestParam("tipo")String tipo){
+	 * ModelAndView mv = new ModelAndView("index");
+	 * 
+	 * if(this.sdServ.existePorNumero(num)){ mv.addObject("mensagem",
+	 * "Novo Registro adicionado!!"); Soldado sd = this.sdServ.buscarPorNumero(num);
+	 * Registro reg = new Registro(new Date(), sd, tipo);
+	 * this.regServ.adicionarRegistro(reg); } return mv; }
+	 * 
+	 */
+
 	@GetMapping("controle")
 	public List<ControleAluno> listaHorario() {
 		return controleAlunoRepository.findAll();
