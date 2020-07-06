@@ -1,5 +1,7 @@
 package com.ifsp.hto.carinho.backend.dto;
 
+import com.ifsp.hto.carinho.backend.model.TipoResponsavel;
+
 public interface ResponsavelDTO {
 
 	/**
@@ -11,5 +13,13 @@ public interface ResponsavelDTO {
 	public String getCarteira_identidade();
 
 	public String getNome_resp();
+
+	public TipoResponsavel getTipo_responsavel();
+
+	public byte[] getFoto();
+
+	public int getTelefone1();
+
+	public int getTelefone2();
 
 }

@@ -21,10 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ifsp.hto.carinho.backend.dto.ResponsavelDTO;
 import com.ifsp.hto.carinho.backend.model.Aluno;
 import com.ifsp.hto.carinho.backend.model.ControleAluno;
-import com.ifsp.hto.carinho.backend.model.FormWrapper;
 import com.ifsp.hto.carinho.backend.model.TipoHorario;
 import com.ifsp.hto.carinho.backend.repository.AlunoRepository;
 import com.ifsp.hto.carinho.backend.repository.ControleAlunoRepository;
+import com.ifsp.hto.carinho.backend.wrapper.ControleAlunoWrapper;
+import com.ifsp.hto.carinho.backend.wrapper.FormWrapper;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -34,17 +35,9 @@ public class AlunoResource {
 	@Autowired(required = true)
 	AlunoRepository alunoRepository;
 
-	@Autowired(required = true)
-	ControleAlunoRepository controleAlunoRepository;
-
 	@GetMapping("alunos")
 	public Page<Aluno> listaAlunos(Pageable pageable) {
 		return alunoRepository.findAll(pageable);
-	}
-
-	@GetMapping("responsavel/{id}")
-	public List<ResponsavelDTO> responsavel(@PathVariable(value = "id") int id) {
-		return alunoRepository.responsavel(id);
 	}
 
 	@GetMapping("aluno/{id}")
@@ -77,68 +70,6 @@ public class AlunoResource {
 	public Aluno atualizaAluno(@RequestBody Aluno aluno) {
 		return alunoRepository.save(aluno);
 	}
-
-	@PostMapping("/controle")
-	public ControleAluno lista(@RequestParam("fk_aluno") long fk_aluno,	@RequestParam("tipoHorario") TipoHorario tipoHorario) {
-
-		// controleAlunoRepository.findOne(boolean<fk_aluno>);
-
-		// ControleAluno controleAluno = new ControleAluno(new
-		// Date(),tipoHorario,fk_aluno);
-
-		ControleAluno controleAluno = new ControleAluno(new Date(),tipoHorario,alunoRepository.findById(fk_aluno));
-
-			
-
-
-
-		
-
-		return controleAlunoRepository.save(controleAluno);
-
-	}
-
-	/*
-	 * 
-	 * 
-	 * @PostMapping("novo_registro") public ModelAndView
-	 * Registrar(@RequestParam("numSd") int num, @RequestParam("tipo")String tipo){
-	 * ModelAndView mv = new ModelAndView("index");
-	 * 
-	 * if(this.sdServ.existePorNumero(num)){ mv.addObject("mensagem",
-	 * "Novo Registro adicionado!!"); Soldado sd = this.sdServ.buscarPorNumero(num);
-	 * Registro reg = new Registro(new Date(), sd, tipo);
-	 * this.regServ.adicionarRegistro(reg); } return mv; }
-	 * 
-	 */
-
-	@GetMapping("controle")
-	public List<ControleAluno> listaHorario() {
-		return controleAlunoRepository.findAll();
-	}
-
-	/*
-	 * @PutMapping("/registro") public Aluno atualizaAluno(@RequestParam Long
-	 * id, @RequestBody TipoHorario tipoHorario) {
-	 * 
-	 * ControleAlunos novoControleAluno = new ControleAlunos();
-	 * 
-	 * novoControleAluno.setHorario(new Date());
-	 * novoControleAluno.setTipoHorario(tipoHorario);
-	 * 
-	 * 
-	 * Optional<Aluno> aluno = alunoRepository.findById(id);
-	 * 
-	 * 
-	 * 
-	 * novoControleAluno.setAluno(aluno);
-	 * 
-	 * 
-	 * 
-	 * 
-	 * return controleAlunos.save(); }
-	 * 
-	 */
 
 	@PostMapping
 	public void upload(@ModelAttribute FormWrapper modelo) {

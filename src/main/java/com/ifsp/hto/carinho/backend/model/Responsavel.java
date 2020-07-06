@@ -1,20 +1,16 @@
 package com.ifsp.hto.carinho.backend.model;
 
 import java.util.Date;
-import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import javax.persistence.Lob;
 
 @Entity
 public class Responsavel {
@@ -26,8 +22,39 @@ public class Responsavel {
 	private Date dataNascimento;
 	private int CarteiraIdentidade;
 
+	private int telefone2;
+	private int telefone1;
+
+	public int getTelefone2() {
+		return telefone2;
+	}
+
+	public void setTelefone2(int telefone2) {
+		this.telefone2 = telefone2;
+	}
+
+	public int getTelefone1() {
+		return telefone1;
+	}
+
+	public void setTelefone1(int telefone1) {
+		this.telefone1 = telefone1;
+	}
+
 	@Enumerated(value = EnumType.STRING)
 	private TipoResponsavel TipoResponsavel;
+
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
+	private byte[] foto;
+
+	public byte[] getFoto() {
+		return foto;
+	}
+
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
 
 	public Date getDataNascimento() {
 		return dataNascimento;
@@ -39,6 +66,14 @@ public class Responsavel {
 
 	public long getId() {
 		return id;
+	}
+
+	public TipoResponsavel getTipoResponsavel() {
+		return TipoResponsavel;
+	}
+
+	public void setTipoResponsavel(TipoResponsavel tipoResponsavel) {
+		TipoResponsavel = tipoResponsavel;
 	}
 
 	public void setId(long id) {

@@ -1,6 +1,8 @@
-package com.ifsp.hto.carinho.backend.model;
+package com.ifsp.hto.carinho.backend.wrapper;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.ifsp.hto.carinho.backend.model.TipoGenero;
 
 public class FormWrapper {
 
