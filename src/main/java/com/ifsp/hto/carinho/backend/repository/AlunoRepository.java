@@ -6,12 +6,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.ifsp.hto.carinho.backend.dto.AlunoDTO;
 import com.ifsp.hto.carinho.backend.dto.ResponsavelDTO;
 import com.ifsp.hto.carinho.backend.model.Aluno;
 
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 
 	Aluno findById(long id);
+
+	@Query(value = "SELECT COUNT(id) from aluno", nativeQuery = true)
+	Integer teste();
 
 	@Query(value = "SELECT * FROM `aluno` WHERE nome LIKE :nomeA%", nativeQuery = true)
 	List<Aluno> findByNome(@Param("nomeA") String nome);
@@ -21,9 +25,14 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 
 	@Query(value = "SELECT * FROM aluno", nativeQuery = true)
 	List<Aluno> fetchEmpDeptDataInnerJoin2();
-	
-	//Aluno findByNumero(long id);
 
-	//boolean existsByNumero(Long id);
+	@Query(value = "select aluno.*, controle_aluno.tipo_horario,controle_aluno.horario from aluno inner join controle_aluno ON aluno.id "
+			+ "= controle_aluno.fk_aluno WHERE controle_aluno.fk_aluno ORDER BY `controle_aluno`.`horario`"
+			+ " DESC LIMIT ?1", countQuery = "SELECT COUNT(id) from aluno", nativeQuery = true)
+	List<AlunoDTO> todosAlunos(Long var);
+
+	// Aluno findByNumero(long id);
+
+	// boolean existsByNumero(Long id);
 
 }

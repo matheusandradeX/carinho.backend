@@ -1,17 +1,15 @@
 package com.ifsp.hto.carinho.backend.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -22,15 +20,17 @@ public class ControleAluno implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private Date horario;
+
+	private ZonedDateTime horario;
+
 	@Enumerated(value = EnumType.STRING)
 	private TipoHorario tipoHorario;
 
 	public ControleAluno() {
-		
+
 	}
 
-	public ControleAluno(Date horario, TipoHorario tipoHorario, Aluno aluno) {
+	public ControleAluno(ZonedDateTime horario, TipoHorario tipoHorario, Aluno aluno) {
 		super();
 		this.horario = horario;
 		this.tipoHorario = tipoHorario;
@@ -46,9 +46,8 @@ public class ControleAluno implements Serializable {
 	}
 
 	@OneToOne
-	@JoinColumn(name="fk_aluno")
-	private	 Aluno aluno;
-	
+	@JoinColumn(name = "fk_aluno")
+	private Aluno aluno;
 
 	public long getId() {
 		return id;
@@ -58,11 +57,11 @@ public class ControleAluno implements Serializable {
 		this.id = id;
 	}
 
-	public Date getHorario() {
+	public ZonedDateTime getHorario() {
 		return horario;
 	}
 
-	public void setHorario(Date horario) {
+	public void setHorario(ZonedDateTime horario) {
 		this.horario = horario;
 	}
 

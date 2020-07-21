@@ -1,6 +1,5 @@
 package com.ifsp.hto.carinho.backend.resources;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ifsp.hto.carinho.backend.model.ControleAluno;
 import com.ifsp.hto.carinho.backend.repository.AlunoRepository;
 import com.ifsp.hto.carinho.backend.repository.ControleAlunoRepository;
+import com.ifsp.hto.carinho.backend.util.Utility;
 import com.ifsp.hto.carinho.backend.wrapper.ControleAlunoWrapper;
 
 @RestController
@@ -32,8 +32,8 @@ public class ControleAlunoResource {
 	@PostMapping("/controle")
 	public ControleAluno lista(@RequestBody ControleAlunoWrapper controleAlunoWrapper) {
 
-		ControleAluno controleAluno = new ControleAluno(new Date(), controleAlunoWrapper.getTipoHorario(),
-				alunoRepository.findById(controleAlunoWrapper.getId()));
+		ControleAluno controleAluno = new ControleAluno(Utility.getDate("Brazil/East"),
+				controleAlunoWrapper.getTipoHorario(), alunoRepository.findById(controleAlunoWrapper.getId()));
 		return controleAlunoRepository.save(controleAluno);
 
 	}

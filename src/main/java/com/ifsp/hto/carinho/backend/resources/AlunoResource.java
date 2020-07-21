@@ -1,6 +1,5 @@
 package com.ifsp.hto.carinho.backend.resources;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ifsp.hto.carinho.backend.dto.ResponsavelDTO;
+import com.ifsp.hto.carinho.backend.dto.AlunoDTO;
 import com.ifsp.hto.carinho.backend.model.Aluno;
-import com.ifsp.hto.carinho.backend.model.ControleAluno;
-import com.ifsp.hto.carinho.backend.model.TipoHorario;
 import com.ifsp.hto.carinho.backend.repository.AlunoRepository;
-import com.ifsp.hto.carinho.backend.repository.ControleAlunoRepository;
-import com.ifsp.hto.carinho.backend.wrapper.ControleAlunoWrapper;
 import com.ifsp.hto.carinho.backend.wrapper.FormWrapper;
 
 @RestController
@@ -49,6 +43,11 @@ public class AlunoResource {
 	public List<Aluno> listaNome(@PathVariable(value = "nome") String nome) {
 		return alunoRepository.findByNome(nome);
 
+	}
+
+	@GetMapping("/testeAluno")
+	public List<AlunoDTO> listaTeste() {
+		return alunoRepository.todosAlunos(alunoRepository.count());
 	}
 
 	@PostMapping("/aluno")
