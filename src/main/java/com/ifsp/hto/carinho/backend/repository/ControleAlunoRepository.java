@@ -1,6 +1,7 @@
 package com.ifsp.hto.carinho.backend.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +15,10 @@ public interface ControleAlunoRepository extends JpaRepository<ControleAluno,Lon
 	
 	@Query(value = "SELECT * FROM controle_aluno", nativeQuery = true)
 	List<ControleAlunoDTO> save2();
+
+	void deleteById(Optional<ControleAluno> findById);
+	
+	
 	
 	
 	

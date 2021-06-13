@@ -1,6 +1,8 @@
 package com.ifsp.hto.carinho.backend.resources;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,10 +17,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ifsp.hto.carinho.backend.dto.AlunoDTO;
 import com.ifsp.hto.carinho.backend.model.Aluno;
+import com.ifsp.hto.carinho.backend.model.TipoGenero;
 import com.ifsp.hto.carinho.backend.repository.AlunoRepository;
+import com.ifsp.hto.carinho.backend.repository.ControleAlunoRepository;
 import com.ifsp.hto.carinho.backend.wrapper.FormWrapper;
 
 @RestController
@@ -28,6 +33,9 @@ public class AlunoResource {
 
 	@Autowired(required = true)
 	AlunoRepository alunoRepository;
+	
+	@Autowired(required = true)
+	ControleAlunoRepository controleAlunoRepository;
 
 	@GetMapping("alunos")
 	public Page<Aluno> listaAlunos(Pageable pageable) {
@@ -51,36 +59,53 @@ public class AlunoResource {
 	}
 
 	@PostMapping("/aluno")
-	public Aluno salvaAluno(@RequestBody Aluno aluno) {
+	public Aluno salvaAluno(String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero) throws IOException {
+		
+		foto.getBytes();	
+		Random gerador = new Random();
+		long id = gerador.nextInt();
+		Aluno aluno = new  Aluno(id,nome, idade, foto.getBytes(), carteiraIdentidade, genero);
+		System.out.println(aluno);
 		return alunoRepository.save(aluno);
+		
 	}
 
 	@DeleteMapping("/aluno/{id}")
 	public void deletaAluno(@PathVariable(value = "id") long id) {
 		alunoRepository.delete(alunoRepository.findById(id));
+		controleAlunoRepository.deleteById(controleAlunoRepository.findById(id));
+		
+		
+		//controleAlunoRepository.delete(controleAlunoRepository.findById(id));
 	}
 
 	@DeleteMapping("/aluno")
 	public void deletaAluno(@RequestBody Aluno aluno) {
-		alunoRepository.delete(aluno);
+		//alunoRepository.delete(aluno);
+		//controleAlunoRepository.deleteById(null);
+		
+		
+		
 	}
+
+//	@PutMapping("/aluno")
+	//public Aluno atualizaAluno(@RequestBody Aluno aluno) {
+	//	return alunoRepository.save(aluno);
+	//}
 
 	@PutMapping("/aluno")
-	public Aluno atualizaAluno(@RequestBody Aluno aluno) {
+	public Aluno salvaAlunos(Long id,String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero) throws IOException {
+		
+		foto.getBytes();	
+		
+		Aluno aluno = new  Aluno(id,nome, idade, foto.getBytes(), carteiraIdentidade, genero);
+		System.out.println(aluno);
 		return alunoRepository.save(aluno);
+		
 	}
 
-	@PostMapping
-	public void upload(@ModelAttribute FormWrapper modelo) {
-		try {
 
-			Aluno novoAluno = new Aluno(modelo.getNome(), modelo.getIdade(), modelo.getGenero(),
-					modelo.getCarteiraIdentidade(), modelo.getImage().getBytes());
-			alunoRepository.save(novoAluno);
-		} catch (Exception e) {
-			throw new RuntimeException("Problemas em salvar o Aluno.", e);
-		}
-
-	}
+	
+	
 
 }

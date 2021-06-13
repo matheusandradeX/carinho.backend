@@ -31,7 +31,7 @@ public class Aluno implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 
 	public long getId() {
 		return id;
@@ -114,34 +114,42 @@ public class Aluno implements Serializable {
 
 	}
 
-	public Aluno(String nome, int idade, TipoGenero genero, int carteiraIdentidade, byte[] foto) {
 
+
+	public Aluno(Long id,String nome, int idade, byte[] foto,int carteiraIdentidade,TipoGenero genero) {
 		this.nome = nome;
 		this.idade = idade;
 		this.genero = genero;
 		this.carteiraIdentidade = carteiraIdentidade;
 		this.foto = foto;
-
+		this.id = id;
+		
 	}
-
-	public Aluno(String nome, int idade, TipoGenero genero, int carteiraIdentidade, byte[] foto, Date dataNascimento) {
+	
+	public Aluno(Long id,String nome, int idade,int carteiraIdentidade,TipoGenero genero) {
 		this.nome = nome;
 		this.idade = idade;
 		this.genero = genero;
 		this.carteiraIdentidade = carteiraIdentidade;
-		this.foto = foto;
-		this.dataNascimento = dataNascimento;
-
+		this.id = id;
+		
 	}
 	
-	
-	public Aluno(String nome, int idade, Date dataNascimento) {
+	public Aluno(String nome, int idade) {
 		this.nome = nome;
 		this.idade = idade;
-		this.dataNascimento = dataNascimento;
+		
 
 	}
 	
+
+	public Aluno(Long id,String nome, int idade, byte[] foto) {
+		this.id = id;
+		this.nome = nome;
+		this.idade = idade;
+		this.foto = foto;
+	
+	}
 	
 	
 
