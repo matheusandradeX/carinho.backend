@@ -42,6 +42,7 @@ public class AlunoResource {
 		return alunoRepository.findAll(pageable);
 	}
 
+	
 	@GetMapping("aluno/{id}")
 	public Aluno listaAlunoUnico(@PathVariable(value = "id") long id) {
 		return alunoRepository.findById(id);
