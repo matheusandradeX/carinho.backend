@@ -19,6 +19,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,7 +32,10 @@ public class Aluno implements Serializable {
 	/**
 	 * 
 	 */
-	//private static final long serialVersionUID = 1L;
+	
+	
+
+    
 
 	public long getId() {
 		return id;
@@ -81,9 +85,13 @@ public class Aluno implements Serializable {
 		this.carteiraIdentidade = carteiraIdentidade;
 	}
 
+	
+
+	private static final long serialVersionUID = 1L;
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
 
 	private String nome;
 
@@ -116,22 +124,23 @@ public class Aluno implements Serializable {
 
 
 
-	public Aluno(Long id,String nome, int idade, byte[] foto,int carteiraIdentidade,TipoGenero genero) {
+	public Aluno(String nome, int idade, byte[] foto,int carteiraIdentidade,TipoGenero genero) {
 		this.nome = nome;
 		this.idade = idade;
 		this.genero = genero;
 		this.carteiraIdentidade = carteiraIdentidade;
 		this.foto = foto;
-		this.id = id;
+		
+		
 		
 	}
 	
-	public Aluno(Long id,String nome, int idade,int carteiraIdentidade,TipoGenero genero) {
+	public Aluno(String nome, int idade,int carteiraIdentidade,TipoGenero genero) {
 		this.nome = nome;
 		this.idade = idade;
 		this.genero = genero;
 		this.carteiraIdentidade = carteiraIdentidade;
-		this.id = id;
+		
 		
 	}
 	
@@ -139,12 +148,13 @@ public class Aluno implements Serializable {
 		this.nome = nome;
 		this.idade = idade;
 		
+		
 
 	}
 	
 
-	public Aluno(Long id,String nome, int idade, byte[] foto) {
-		this.id = id;
+	public Aluno(String nome, int idade, byte[] foto) {
+	
 		this.nome = nome;
 		this.idade = idade;
 		this.foto = foto;

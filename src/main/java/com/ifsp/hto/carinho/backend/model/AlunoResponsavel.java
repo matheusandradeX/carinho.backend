@@ -13,10 +13,11 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class AlunoResponsavel {
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private long id;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "nome", referencedColumnName = "id", nullable = false)

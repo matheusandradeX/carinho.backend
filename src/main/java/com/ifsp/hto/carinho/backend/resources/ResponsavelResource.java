@@ -41,34 +41,14 @@ public class ResponsavelResource {
 		
 		return responsavelRepository.findAll();
 	}
-
-	
-	
 		@PostMapping("/responsavel") 
 	public Responsavel salvaResponsavel( String nomeResp, Integer carteiraIdentidade, int telefone, TipoResponsavel tipoResponsavel,MultipartFile foto) throws IOException {
 		
-			Random gerador = new Random();
-			long id = gerador.nextInt();
-		Responsavel responsavel = new Responsavel(id,nomeResp, carteiraIdentidade, tipoResponsavel, telefone,foto.getBytes());
+			
+		Responsavel responsavel = new Responsavel(nomeResp, carteiraIdentidade, tipoResponsavel, telefone,foto.getBytes());
 		
 	return responsavelRepository.save(responsavel);
 	
 	}
-	/*
 
-	
-	@PostMapping("/responsavel") 
-	public String salvaResponsavel(String nomeResp, Date dataNascimento,int numero) {
-		System.out.printf("NUMEROOOO: ",numero);
-		return "testeeeeeeeeeeeeeeeeeee";
-	}
-	*/
-
-
-	
-	
-	
-	
-	
-	
 }

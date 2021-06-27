@@ -17,7 +17,7 @@ public class Responsavel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private long id;
 	
 	private String nomeResp;
 	private Date dataNascimento;
@@ -62,14 +62,14 @@ public class Responsavel {
 	
 	
 	
-	public Responsavel(Long id,String nomeResp, Integer carteiraIdentidade, TipoResponsavel tipoResponsavel, int telefone,
+	public Responsavel(String nomeResp, Integer carteiraIdentidade, TipoResponsavel tipoResponsavel, int telefone,
 			byte[] foto) {
 		this.nomeResp = nomeResp;
 		this.carteiraIdentidade = carteiraIdentidade;
 		this.tipoResponsavel = tipoResponsavel;
 		this.telefone = telefone;
 		this.foto = foto;
-		this.id = id;
+	
 	}
 	public Responsavel(String nomeResp, Date dataNascimento, int carteiraIdentidade, TipoResponsavel tipoResponsavel,
 			int telefone) {

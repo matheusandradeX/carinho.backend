@@ -60,12 +60,10 @@ public class AlunoResource {
 	}
 
 	@PostMapping("/aluno")
-	public Aluno salvaAluno(String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero) throws IOException {
+	public Aluno salvaAluno( String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero) throws IOException {
 		
 		foto.getBytes();	
-		Random gerador = new Random();
-		long id = gerador.nextInt();
-		Aluno aluno = new  Aluno(id,nome, idade, foto.getBytes(), carteiraIdentidade, genero);
+		Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero);
 		System.out.println(aluno);
 		return alunoRepository.save(aluno);
 		
@@ -75,31 +73,19 @@ public class AlunoResource {
 	public void deletaAluno(@PathVariable(value = "id") long id) {
 		alunoRepository.delete(alunoRepository.findById(id));
 		controleAlunoRepository.deleteById(controleAlunoRepository.findById(id));
-		
-		
-		//controleAlunoRepository.delete(controleAlunoRepository.findById(id));
 	}
 
 	@DeleteMapping("/aluno")
 	public void deletaAluno(@RequestBody Aluno aluno) {
 		//alunoRepository.delete(aluno);
 		//controleAlunoRepository.deleteById(null);
-		
-		
-		
 	}
 
-//	@PutMapping("/aluno")
-	//public Aluno atualizaAluno(@RequestBody Aluno aluno) {
-	//	return alunoRepository.save(aluno);
-	//}
-
 	@PutMapping("/aluno")
-	public Aluno salvaAlunos(Long id,String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero) throws IOException {
+	public Aluno salvaAlunos(String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero) throws IOException {
 		
 		foto.getBytes();	
-		
-		Aluno aluno = new  Aluno(id,nome, idade, foto.getBytes(), carteiraIdentidade, genero);
+		Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero);
 		System.out.println(aluno);
 		return alunoRepository.save(aluno);
 		
