@@ -16,9 +16,10 @@ public interface ResponsavelDTO {
 
 	public TipoResponsavel getTipo_responsavel();
 
+	public byte[] getFoto();
+	
+	public int getTelefone();
 
-	public int getTelefone1();
 
-	public int getTelefone2();
 
 }

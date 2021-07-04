@@ -1,5 +1,6 @@
 package com.ifsp.hto.carinho.backend.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -13,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 
 @Entity
-public class Responsavel {
+public class Responsavel implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
