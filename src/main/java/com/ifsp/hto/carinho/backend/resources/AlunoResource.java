@@ -38,8 +38,8 @@ public class AlunoResource {
 	ControleAlunoRepository controleAlunoRepository;
 
 	@GetMapping("alunos")
-	public Page<Aluno> listaAlunos(Pageable pageable) {
-		return alunoRepository.findAll(pageable);
+	public List<Aluno> listaAlunos() {
+		return alunoRepository.findAll();
 	}
 
 	
