@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigInteger;
 import java.security.*;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,12 +31,13 @@ public class LoginResource {
 	public Login listaLogin(@PathVariable(value = "id") long id) {
 		return loginRepository.findById(id);
 	}
-	/*
-	@GetMapping("login/{id}/{id2}")
-	public Login validar(@PathVariable(value = "id") String nome, @PathVariable(value ="id2") String senha) {
-		return loginRepository.validarUsuario(nome, senha);
+	@GetMapping("login/professores")
+	public List<Login> teste(){
+		return loginRepository.professoresCadastrados();
 	}
-	*/
+	
+	
+	
 	
 	@PostMapping("/login")
 	public Login autenticar(String nome, String senha) throws NoSuchAlgorithmException {
@@ -53,13 +56,13 @@ public class LoginResource {
 	}
 	
 	@PostMapping("/cadastrarPerfil")
-	public Login cadastrar( String usuario, String senha, String email, TipoUsuario perfil, String nome) throws NoSuchAlgorithmException {
+	public Login cadastrar( String usuario, String senha, String email, TipoUsuario perfil, String nome, String carteiraIdentidade,String cpf) throws NoSuchAlgorithmException {
 		
 		
 		 String senhaCriptografada = MD5.stringToMD5(senha);  
 		 System.out.println(senhaCriptografada);
 		
-		Login login = new Login(nome, perfil, usuario,senhaCriptografada , email);
+		Login login = new Login(nome, perfil, usuario,senhaCriptografada , email,carteiraIdentidade,cpf);
 		
 		return loginRepository.save(login);
 	}

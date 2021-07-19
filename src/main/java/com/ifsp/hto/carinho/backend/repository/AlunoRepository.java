@@ -8,11 +8,17 @@ import org.springframework.data.repository.query.Param;
 
 import com.ifsp.hto.carinho.backend.dto.AlunoDTO;
 import com.ifsp.hto.carinho.backend.dto.ResponsavelDTO;
+import com.ifsp.hto.carinho.backend.dto.TurmaDTO;
 import com.ifsp.hto.carinho.backend.model.Aluno;
+import com.ifsp.hto.carinho.backend.model.Turma;
 
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 
 	Aluno findById(long id);
+	
+	@Query(value= "select aluno.nome,aluno.carteira_identidade,aluno.genero,turma.numero_turma from turma inner join aluno WHERE turma.id =:numero",nativeQuery = true)
+	List<TurmaDTO>  listaTurmas(@Param("numero") long id);
+	
 
 	@Query(value = "SELECT COUNT(id) from aluno", nativeQuery = true)
 	Integer teste();

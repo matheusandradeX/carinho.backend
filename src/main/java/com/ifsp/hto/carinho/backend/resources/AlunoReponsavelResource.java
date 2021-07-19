@@ -22,6 +22,7 @@ import com.ifsp.hto.carinho.backend.model.AlunoResponsavel;
 import com.ifsp.hto.carinho.backend.model.Responsavel;
 import com.ifsp.hto.carinho.backend.model.TipoGenero;
 import com.ifsp.hto.carinho.backend.model.TipoResponsavel;
+import com.ifsp.hto.carinho.backend.model.Turma;
 import com.ifsp.hto.carinho.backend.repository.AlunoRepository;
 import com.ifsp.hto.carinho.backend.repository.AlunoResponsavelRepository;
 import com.ifsp.hto.carinho.backend.repository.ResponsavelRepository;
@@ -71,6 +72,8 @@ public class AlunoReponsavelResource {
 		return;
 	}
 
+	
+	
 		
 		
 }

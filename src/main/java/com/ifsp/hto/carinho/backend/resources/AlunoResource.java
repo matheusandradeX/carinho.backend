@@ -2,6 +2,7 @@ package com.ifsp.hto.carinho.backend.resources;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ifsp.hto.carinho.backend.dto.AlunoDTO;
+import com.ifsp.hto.carinho.backend.dto.TurmaDTO;
 import com.ifsp.hto.carinho.backend.model.Aluno;
 import com.ifsp.hto.carinho.backend.model.TipoGenero;
+import com.ifsp.hto.carinho.backend.model.Turma;
 import com.ifsp.hto.carinho.backend.repository.AlunoRepository;
 import com.ifsp.hto.carinho.backend.repository.ControleAlunoRepository;
+import com.ifsp.hto.carinho.backend.repository.TurmaRepository;
 import com.ifsp.hto.carinho.backend.wrapper.FormWrapper;
 
 @RestController
@@ -33,9 +37,21 @@ public class AlunoResource {
 
 	@Autowired(required = true)
 	AlunoRepository alunoRepository;
+	@Autowired(required = true)
+	TurmaRepository turmaRepository;
 	
 	@Autowired(required = true)
 	ControleAlunoRepository controleAlunoRepository;
+	
+	
+	@GetMapping("/turma/{id}")
+	public List<TurmaDTO> listaAlunos (@PathVariable(value = "id") long id){
+		
+		return alunoRepository.listaTurmas(id);
+	}
+	
+	
+	
 
 	@GetMapping("alunos")
 	public List<Aluno> listaAlunos() {
@@ -60,10 +76,16 @@ public class AlunoResource {
 	}
 
 	@PostMapping("/aluno")
-	public Aluno salvaAluno( String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero) throws IOException {
+	public Aluno salvaAluno( String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero, long turma) throws IOException {
+		System.out.println("---------------");
+		System.out.println(turma);
+		//return null;
+		
+		Turma t = turmaRepository.findById(turma);	
+		
 		
 		foto.getBytes();	
-		Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero);
+		Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero,t);
 		System.out.println(aluno);
 		return alunoRepository.save(aluno);
 		
@@ -82,10 +104,13 @@ public class AlunoResource {
 	}
 
 	@PutMapping("/aluno")
-	public Aluno salvaAlunos(String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero) throws IOException {
+	public Aluno salvaAlunos(String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero, Turma  turma) throws IOException {
+		
+		
+		
 		
 		foto.getBytes();	
-		Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero);
+		Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero,turma);
 		System.out.println(aluno);
 		return alunoRepository.save(aluno);
 		

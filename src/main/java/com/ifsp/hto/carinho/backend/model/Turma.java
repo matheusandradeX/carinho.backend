@@ -27,9 +27,19 @@ public class Turma implements Serializable{
 	private String numeroTurma;
 	
 	
-	@ManyToOne(cascade=CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "professor_responsavel", referencedColumnName = "id")
-	 @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+	
+	
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
+
 	private String professorResponsavel;
 
 	public String getNumeroTurma() {

@@ -26,7 +26,6 @@ public class Login implements Serializable {
 		
 	}
 
-
 	public Login(String usuario, String senha) {
 		this.usuario = usuario;
 		this.senha = senha;
@@ -43,6 +42,10 @@ public class Login implements Serializable {
 	String nome;
 	@Enumerated(value = EnumType.STRING)
 	TipoUsuario perfil;
+	
+	String carteiraIdentidade;
+	
+	String cpf;  
 	
 	String usuario;
 
@@ -74,36 +77,39 @@ public class Login implements Serializable {
 		this.email = email;
 	}
 
-
-	public Login(String nome, TipoUsuario perfil, String usuario, String senha, String email) {
+	public Login(String nome, TipoUsuario perfil, String usuario, String senha, String email,String carteiraIdentidade,String cpf) {
 		this.nome = nome;
 		this.perfil = perfil;
 		this.usuario = usuario;
 		this.senha = senha;
 		this.email = email;
+		this.carteiraIdentidade = carteiraIdentidade;
+		this.cpf = cpf;
+	}
+	public String getCarteiraIdentidade() {
+		return carteiraIdentidade;
+	}
+	public void setCarteiraIdentidade(String carteiraIdentidade) {
+		this.carteiraIdentidade = carteiraIdentidade;
 	}
 
+	public String getCpf() {
+		return cpf;
+	}
 
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 	public String getNome() {
 		return nome;
 	}
-
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-
 	public TipoUsuario getPerfil() {
 		return perfil;
 	}
-
-
 	public void setPerfil(TipoUsuario perfil) {
 		this.perfil = perfil;
 	}
-
-
-	
-
 }

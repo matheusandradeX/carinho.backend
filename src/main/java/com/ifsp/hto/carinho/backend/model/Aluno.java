@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -33,10 +34,6 @@ public class Aluno implements Serializable {
 	 * 
 	 */
 	
-	
-
-    
-
 	public long getId() {
 		return id;
 	}
@@ -105,6 +102,24 @@ public class Aluno implements Serializable {
 
 	private int carteiraIdentidade;
 
+	
+	
+	
+	
+	public Turma getTurma() {
+		return turma;
+	}
+
+	public void setTurma(Turma turma) {
+		this.turma = turma;
+	}
+
+
+
+	@ManyToOne
+	@JoinColumn(name = "fk_turma_id")
+	private Turma turma;
+	
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] foto;
@@ -123,12 +138,13 @@ public class Aluno implements Serializable {
 
 
 
-	public Aluno(String nome, int idade, byte[] foto,int carteiraIdentidade,TipoGenero genero) {
+	public Aluno(String nome, int idade, byte[] foto,int carteiraIdentidade,TipoGenero genero, Turma turma) {
 		this.nome = nome;
 		this.idade = idade;
 		this.genero = genero;
 		this.carteiraIdentidade = carteiraIdentidade;
 		this.foto = foto;
+		this.turma = turma;
 		
 		
 		
