@@ -45,8 +45,8 @@ public class ControleAluno implements Serializable {
 		this.aluno = aluno;
 	}
 
-	//@OneToOne
-	//@JoinColumn(name = "fk_aluno")
+	@OneToOne
+	@JoinColumn(name = "fk_aluno")
 	private Aluno aluno;
 
 	public long getId() {

@@ -117,7 +117,7 @@ public class Aluno implements Serializable {
 
 
 	@ManyToOne
-	@JoinColumn(name = "fk_turma_id")
+	@JoinColumn(name = "fk_turma_id",insertable = true,updatable = true)
 	private Turma turma;
 	
 	@Lob

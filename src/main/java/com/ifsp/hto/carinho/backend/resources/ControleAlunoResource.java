@@ -31,17 +31,53 @@ public class ControleAlunoResource {
 
 	@PostMapping("/controle")
 	public ControleAluno lista(@RequestBody ControleAlunoWrapper controleAlunoWrapper) {
+	
+	//public String lista(@RequestBody ControleAlunoWrapper controleAlunoWrapper) {
+		
+		System.out.println("-------------------------------");
+		System.out.println(controleAlunoWrapper);
+		System.out.println(controleAlunoWrapper.getId());
+		System.out.println(controleAlunoWrapper.getTipoHorario());
 
-		ControleAluno controleAluno = new ControleAluno(Utility.getDate("Brazil/East"),
-				controleAlunoWrapper.getTipoHorario(), alunoRepository.findById(controleAlunoWrapper.getId()));
+		
+
+		ControleAluno controleAluno = new ControleAluno(
+				Utility.getDate("Brazil/East"),
+				controleAlunoWrapper.getTipoHorario(), 
+				alunoRepository.findById(controleAlunoWrapper.getId())
+				);
+		
+		
 		return controleAlunoRepository.save(controleAluno);
+		
+		
+		
+		
+		
+		
+		//return "deu certo";
 
 	}
 
-	@GetMapping("controle")
+	@GetMapping("/controle")
 	public ResponseEntity<List<ControleAluno>> listaHorario() {
 
 		return new ResponseEntity<>(controleAlunoRepository.findAll(), HttpStatus.OK);
+
+	}
+	
+	@GetMapping("/f")
+	public String FFFF() {
+
+		
+		
+		int cont = controleAlunoRepository.teste1();
+		String d = controleAlunoRepository.teste2(cont);
+		
+		
+	
+		
+		return d;
 
 	}
 

@@ -16,7 +16,7 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 
 	Aluno findById(long id);
 	
-	@Query(value= "select aluno.nome,aluno.carteira_identidade,aluno.genero,turma.numero_turma from turma inner join aluno WHERE turma.id =:numero",nativeQuery = true)
+	@Query(value= "select aluno.nome,aluno.carteira_identidade,aluno.genero,turma.numero_turma from turma inner join aluno ON (aluno.fk_turma_id = turma.id)  WHERE turma.id =:numero",nativeQuery = true)
 	List<TurmaDTO>  listaTurmas(@Param("numero") long id);
 	
 

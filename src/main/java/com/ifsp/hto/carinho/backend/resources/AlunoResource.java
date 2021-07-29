@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.provider.HibernateUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -104,15 +107,51 @@ public class AlunoResource {
 	}
 
 	@PutMapping("/aluno")
-	public Aluno salvaAlunos(String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero, Turma  turma) throws IOException {
+	public String salvaAlunos(int id_aluno,String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero, int id_turma) throws IOException {
 		
 		
 		
+		//Turma turma2 = new Turma(numeroTurma, professorResponsavel);
 		
-		foto.getBytes();	
-		Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero,turma);
-		System.out.println(aluno);
-		return alunoRepository.save(aluno);
+		//Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero,turma);
+		//System.out.println(aluno);
+		
+		
+		
+		try { 
+			
+		Turma turma_teste = turmaRepository.findById(id_turma);	
+			
+		Aluno userFromDb = alunoRepository.findById(15);
+	    userFromDb.setNome(nome);
+	    userFromDb.setIdade(idade);
+	    userFromDb.setCarteiraIdentidade(carteiraIdentidade);
+	    userFromDb.setFoto(foto.getBytes());
+	    userFromDb.setGenero(genero);
+	    userFromDb.setTurma(turma_teste);  
+	    
+	    alunoRepository.save(userFromDb); 
+	    
+	    
+	    
+	    return "deu certo!";
+
+			
+		}catch(Exception e){
+			   e.printStackTrace();
+			   return "deu erro!";
+			   
+		}
+	   
+			
+			
+	
+		
+		
+		
+		//return alunoRepository.save(aluno);
+		
+		//return null;
 		
 	}
 

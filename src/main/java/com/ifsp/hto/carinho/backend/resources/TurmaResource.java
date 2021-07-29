@@ -35,25 +35,12 @@ public class TurmaResource {
 	}
 	
 
-
-	
-	
-	
-	
 	@PostMapping("/cadastrarTurma")
-	public Turma  cadastro(String numeroTurma, String professorResponsavel){
-		
-		
-		
+	public Turma  cadastro(String numeroTurma, String professorResponsavel){		
 		Turma turma = new Turma(numeroTurma,professorResponsavel);
 		return turmaRepository.save(turma);
 				
 	}
 	
-	
-	
-	
-	
-	
-	
+
 }

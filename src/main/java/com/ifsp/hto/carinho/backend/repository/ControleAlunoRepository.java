@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.ifsp.hto.carinho.backend.dto.ControleAlunoDTO;
 import com.ifsp.hto.carinho.backend.model.Aluno;
@@ -19,6 +20,14 @@ public interface ControleAlunoRepository extends JpaRepository<ControleAluno,Lon
 	void deleteById(Optional<ControleAluno> findById);
 	
 	
+	
+	@Query(value = "SELECT COUNT(tipo_horario) -1  FROM controle_aluno where fk_aluno = 19", nativeQuery = true)
+	int teste1();
+	
+	
+	
+	@Query(value = "SELECT tipo_horario FROM controle_aluno where fk_aluno =19 ORDER BY fk_aluno DESC LIMIT :numero ,1", nativeQuery = true)
+	String teste2(@Param("numero") long id);
 	
 	
 	
