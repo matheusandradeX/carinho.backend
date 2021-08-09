@@ -16,5 +16,9 @@ public interface AlunoResponsavelRepository extends JpaRepository<AlunoResponsav
 	AlunoResponsavel  selecionarResponsavel(@Param("id") long id,@Param("id2") long id2);
 	
 	
+	@Query(value ="SELECT id from aluno_responsavel where nome = :id",nativeQuery = true)
+	long  aaa(@Param("id") long id);
+	
+	
 
 }

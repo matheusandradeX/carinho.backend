@@ -7,11 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ifsp.hto.carinho.backend.dto.ControleAlunoDTO;
+import com.ifsp.hto.carinho.backend.model.Aluno;
 import com.ifsp.hto.carinho.backend.model.ControleAluno;
 import com.ifsp.hto.carinho.backend.repository.AlunoRepository;
 import com.ifsp.hto.carinho.backend.repository.ControleAlunoRepository;
@@ -30,16 +33,11 @@ public class ControleAlunoResource {
 	ControleAlunoRepository controleAlunoRepository;
 
 	@PostMapping("/controle")
-	public ControleAluno lista(@RequestBody ControleAlunoWrapper controleAlunoWrapper) {
-	
-	//public String lista(@RequestBody ControleAlunoWrapper controleAlunoWrapper) {
-		
+	public ControleAluno lista(@RequestBody ControleAlunoWrapper controleAlunoWrapper) {	
 		System.out.println("-------------------------------");
 		System.out.println(controleAlunoWrapper);
 		System.out.println(controleAlunoWrapper.getId());
 		System.out.println(controleAlunoWrapper.getTipoHorario());
-
-		
 
 		ControleAluno controleAluno = new ControleAluno(
 				Utility.getDate("Brazil/East"),
@@ -50,14 +48,7 @@ public class ControleAlunoResource {
 		
 		return controleAlunoRepository.save(controleAluno);
 		
-		
-		
-		
-		
-		
-		//return "deu certo";
-
-	}
+		}
 
 	@GetMapping("/controle")
 	public ResponseEntity<List<ControleAluno>> listaHorario() {
@@ -66,19 +57,10 @@ public class ControleAlunoResource {
 
 	}
 	
-	@GetMapping("/f")
-	public String FFFF() {
-
-		
-		
-		int cont = controleAlunoRepository.teste1();
-		String d = controleAlunoRepository.teste2(cont);
-		
-		
-	
-		
-		return d;
-
+	@GetMapping("/ultimoRegistro/{id}")
+	public ControleAlunoDTO ultimoRegistro(@PathVariable(value = "id")long id ) {
+		long cont = controleAlunoRepository.cont(id);
+			return controleAlunoRepository.resultado(cont,id);
 	}
 
 }

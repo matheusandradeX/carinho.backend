@@ -12,6 +12,6 @@ public interface TurmaDTO {
 		
 		public String getNumero_turma();
 		
-	
+		public int getId();
 	
 }

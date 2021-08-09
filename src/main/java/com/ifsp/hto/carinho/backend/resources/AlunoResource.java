@@ -1,6 +1,7 @@
 package com.ifsp.hto.carinho.backend.resources;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -24,11 +25,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ifsp.hto.carinho.backend.dto.AlunoDTO;
+import com.ifsp.hto.carinho.backend.dto.FrequenciaDTO;
 import com.ifsp.hto.carinho.backend.dto.TurmaDTO;
 import com.ifsp.hto.carinho.backend.model.Aluno;
+import com.ifsp.hto.carinho.backend.model.AlunoResponsavel;
+import com.ifsp.hto.carinho.backend.model.ControleAluno;
 import com.ifsp.hto.carinho.backend.model.TipoGenero;
 import com.ifsp.hto.carinho.backend.model.Turma;
 import com.ifsp.hto.carinho.backend.repository.AlunoRepository;
+import com.ifsp.hto.carinho.backend.repository.AlunoResponsavelRepository;
 import com.ifsp.hto.carinho.backend.repository.ControleAlunoRepository;
 import com.ifsp.hto.carinho.backend.repository.TurmaRepository;
 import com.ifsp.hto.carinho.backend.wrapper.FormWrapper;
@@ -45,14 +50,26 @@ public class AlunoResource {
 	
 	@Autowired(required = true)
 	ControleAlunoRepository controleAlunoRepository;
+
+	@Autowired(required = true)
+	AlunoResponsavelRepository alunoResponsavelRepository;
 	
 	
-	@GetMapping("/turma/{id}")
+	
+	
+	
+	
+	@GetMapping("turma/{id}")
 	public List<TurmaDTO> listaAlunos (@PathVariable(value = "id") long id){
 		
 		return alunoRepository.listaTurmas(id);
 	}
 	
+	@GetMapping("frequencia/{id}")
+	public List<FrequenciaDTO> listaFrequencia (@PathVariable(value = "id") long id){
+		
+		return alunoRepository.listaFrequencia(id);
+	}
 	
 	
 
@@ -95,10 +112,34 @@ public class AlunoResource {
 	}
 
 	@DeleteMapping("/aluno/{id}")
-	public void deletaAluno(@PathVariable(value = "id") long id) {
-		alunoRepository.delete(alunoRepository.findById(id));
-		controleAlunoRepository.deleteById(controleAlunoRepository.findById(id));
+	public String deletaAluno(@PathVariable(value = "id") long id) {
+		ArrayList<ControleAluno> listaControleAluno = controleAlunoRepository.buscaFK(id);		
+		for(ControleAluno elem : listaControleAluno){
+		       System.out.println(elem.getId());
+		       controleAlunoRepository.delete(elem);       
+		}
+		long a = alunoResponsavelRepository.aaa(id);
+		alunoResponsavelRepository.deleteById(a);
+		
+		System.out.println(a);
+		
+	//alunoRepository.deleteById(id);
+		
+	deletaAlunoSemPai(id);
+	
+	return "deu certo";
 	}
+	
+	
+	public void deletaAlunoSemPai(long id) {
+	
+	alunoRepository.deleteById(id);
+		
+	
+	}
+	
+	
+	
 
 	@DeleteMapping("/aluno")
 	public void deletaAluno(@RequestBody Aluno aluno) {
@@ -107,22 +148,18 @@ public class AlunoResource {
 	}
 
 	@PutMapping("/aluno")
-	public String salvaAlunos(int id_aluno,String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero, int id_turma) throws IOException {
-		
-		
+public String salvaAlunos(int id_aluno,String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero, int id_turma) throws IOException {
 		
 		//Turma turma2 = new Turma(numeroTurma, professorResponsavel);
 		
 		//Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero,turma);
 		//System.out.println(aluno);
-		
-		
-		
+
 		try { 
 			
 		Turma turma_teste = turmaRepository.findById(id_turma);	
 			
-		Aluno userFromDb = alunoRepository.findById(15);
+		Aluno userFromDb = alunoRepository.findById(id_aluno);
 	    userFromDb.setNome(nome);
 	    userFromDb.setIdade(idade);
 	    userFromDb.setCarteiraIdentidade(carteiraIdentidade);
@@ -133,7 +170,7 @@ public class AlunoResource {
 	    alunoRepository.save(userFromDb); 
 	    
 	    
-	    
+	  
 	    return "deu certo!";
 
 			

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.ifsp.hto.carinho.backend.dto.AlunoDTO;
+import com.ifsp.hto.carinho.backend.dto.FrequenciaDTO;
 import com.ifsp.hto.carinho.backend.dto.ResponsavelDTO;
 import com.ifsp.hto.carinho.backend.dto.TurmaDTO;
 import com.ifsp.hto.carinho.backend.model.Aluno;
@@ -16,8 +17,13 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 
 	Aluno findById(long id);
 	
-	@Query(value= "select aluno.nome,aluno.carteira_identidade,aluno.genero,turma.numero_turma from turma inner join aluno ON (aluno.fk_turma_id = turma.id)  WHERE turma.id =:numero",nativeQuery = true)
+	@Query(value= "select aluno.id,aluno.nome,aluno.carteira_identidade,aluno.genero,turma.numero_turma from turma inner join aluno ON (aluno.fk_turma_id = turma.id)  WHERE turma.id =:numero",nativeQuery = true)
 	List<TurmaDTO>  listaTurmas(@Param("numero") long id);
+	
+	@Query(value= "SELECT aluno.nome ,controle_aluno.tipo_horario, controle_aluno.horario from aluno inner JOIN controle_aluno on controle_aluno.fk_aluno = aluno.id INNER JOIN turma on turma.id = aluno.fk_turma_id WHERE turma.id =:numero", nativeQuery = true)
+	List<FrequenciaDTO> listaFrequencia(@Param("numero") long id) ;
+	
+	
 	
 
 	@Query(value = "SELECT COUNT(id) from aluno", nativeQuery = true)
@@ -37,8 +43,6 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 			+ " DESC LIMIT ?1", countQuery = "SELECT COUNT(id) from aluno", nativeQuery = true)
 	List<AlunoDTO> todosAlunos(Long var);
 
-	// Aluno findByNumero(long id);
 
-	// boolean existsByNumero(Long id);
 
 }
