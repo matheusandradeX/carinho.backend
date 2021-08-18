@@ -30,6 +30,8 @@ public interface ControleAlunoRepository extends JpaRepository<ControleAluno,Lon
 
 	@Query(value = "SELECT * FROM `controle_aluno` WHERE fk_aluno = :id", nativeQuery = true)	
 	ArrayList<ControleAluno> buscaFK(@Param("id")long id);
+	
+	
 
 	
 

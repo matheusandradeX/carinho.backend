@@ -113,6 +113,7 @@ public class AlunoResource {
 
 	@DeleteMapping("/aluno/{id}")
 	public String deletaAluno(@PathVariable(value = "id") long id) {
+		/*
 		ArrayList<ControleAluno> listaControleAluno = controleAlunoRepository.buscaFK(id);		
 		for(ControleAluno elem : listaControleAluno){
 		       System.out.println(elem.getId());
@@ -125,15 +126,74 @@ public class AlunoResource {
 		
 	//alunoRepository.deleteById(id);
 		
-	deletaAlunoSemPai(id);
+	//deletaAlunoSemPai(id);
+	*/
+		//Somente deletando relacionamento entidade aluno responsavel
+		
+		System.out.println("ID recebido          : "+id);
+		
+		ArrayList<Long> listIdAluno = alunoResponsavelRepository.getIdRelacionamentoAluno(id);
+		alunoResponsavelRepository.flush();
+		
+		for(long elem : listIdAluno){
+			System.out.println("ID aluno_responsavel: "+ elem);	
+			
+			alunoResponsavelRepository.deleteById(elem);
+			
+			
+			//alunoResponsavelRepository.flush();
+		}
+		
+		
+		
 	
+		
+		//System.out.println("ID aluno_responsavel : "+idAluno);
+		
+		
+		//alunoResponsavelRepository.deleteById(idAluno);	
+		
+		//long countAlunoResponsavel = alunoResponsavelRepository.count();
+		/*
+		ArrayList<AlunoResponsavel> listaAlunoResponsavel = alunoResponsavelRepository.getListaResponsaveis(id);
+		
+		for(AlunoResponsavel ar :listaAlunoResponsavel) {
+			System.out.println(ar.getId());			
+		}
+		*/	
+		/*
+		
+		ArrayList<ControleAluno> listaControleAluno = controleAlunoRepository.buscaFK(id);		
+		
+		for(ControleAluno elem : listaControleAluno){
+		       System.out.println(elem.getId());
+		       controleAlunoRepository.delete(elem);       
+		}
+		
+		
+		*/
+		
+		
+		
+		//deletando aluno na entidade aluno
+		//alunoRepository.deleteById(id);
+		//System.out.println("   Aluno deletado");
+		
+		
 	return "deu certo";
 	}
 	
 	
-	public void deletaAlunoSemPai(long id) {
+	
+	
+	
+	
+	@DeleteMapping("/2/aluno/{id}")
+	public String deletaAlunoSemPai(@PathVariable(value = "id") long id) {
 	
 	alunoRepository.deleteById(id);
+	
+	return "deu certo";
 		
 	
 	}
