@@ -2,9 +2,12 @@ package com.ifsp.hto.carinho.backend.resources;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+
+import javax.sql.rowset.serial.SerialBlob;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +40,7 @@ import com.ifsp.hto.carinho.backend.repository.AlunoResponsavelRepository;
 import com.ifsp.hto.carinho.backend.repository.ControleAlunoRepository;
 import com.ifsp.hto.carinho.backend.repository.TurmaRepository;
 import com.ifsp.hto.carinho.backend.wrapper.FormWrapper;
+import com.mysql.cj.jdbc.Blob;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -96,7 +100,7 @@ public class AlunoResource {
 	}
 
 	@PostMapping("/aluno")
-	public Aluno salvaAluno( String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero, long turma) throws IOException {
+	public Aluno salvaAluno( String nome, int idade, MultipartFile foto ,int carteiraIdentidade, TipoGenero genero, long turma) throws IOException {
 		System.out.println("---------------");
 		System.out.println(turma);
 		//return null;
@@ -104,12 +108,48 @@ public class AlunoResource {
 		Turma t = turmaRepository.findById(turma);	
 		
 		
-		foto.getBytes();	
+			
 		Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero,t);
 		System.out.println(aluno);
 		return alunoRepository.save(aluno);
 		
 	}
+	@PostMapping("/aluno2")
+	public Aluno salvaAluno2( String nome, int idade, MultipartFile foto ,int carteiraIdentidade, TipoGenero genero, long turma) throws IOException {
+		Turma t = turmaRepository.findById(turma);
+	
+		System.out.println(foto.getBytes());
+	
+		Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero,t);
+		
+				return alunoRepository.save(aluno);
+		
+		
+		
+		
+	
+		
+		
+		
+		//Turma t = turmaRepository.findById(turma);	
+		
+		
+
+		//Aluno aluno = new  Aluno(nome, idade, foto, carteiraIdentidade, genero,t);
+		
+		//return alunoRepository.save(aluno);
+		
+	
+		
+	
+		
+		
+		
+	
+		
+	}
+	
+	
 
 	@DeleteMapping("/aluno/{id}")
 	public String deletaAluno(@PathVariable(value = "id") long id) {
@@ -134,17 +174,15 @@ public class AlunoResource {
 		
 		ArrayList<Long> listIdAluno = alunoResponsavelRepository.getIdRelacionamentoAluno(id);
 		alunoResponsavelRepository.flush();
+
 		
-		for(long elem : listIdAluno){
-			System.out.println("ID aluno_responsavel: "+ elem);	
-			
+		for(long elem : listIdAluno){			
+	
 			alunoResponsavelRepository.deleteById(elem);
-			
-			
-			//alunoResponsavelRepository.flush();
+			System.out.println("ID aluno_responsavel: "+ elem +" deletado ");				
 		}
 		
-		
+		alunoRepository.deleteById(id);
 		
 	
 		
@@ -208,7 +246,7 @@ public class AlunoResource {
 	}
 
 	@PutMapping("/aluno")
-public String salvaAlunos(int id_aluno,String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero, int id_turma) throws IOException {
+	public String salvaAlunos(int id_aluno,String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero, int id_turma) throws IOException {
 		
 		//Turma turma2 = new Turma(numeroTurma, professorResponsavel);
 		

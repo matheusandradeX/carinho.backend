@@ -24,7 +24,7 @@ public class AlunoResponsavel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@ManyToOne(cascade=CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+	@ManyToOne()
 	@JoinColumn(name = "nome", referencedColumnName = "id")
 	 @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
 	private Aluno aluno;
@@ -32,7 +32,7 @@ public class AlunoResponsavel implements Serializable {
 	//@Column(name="nome",insertable = false, updatable = false)
 	//int alunoId;
 	
-	@ManyToOne(cascade=CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+	@ManyToOne()
 	@JoinColumn(name = "nome_resp", referencedColumnName = "id")
 	 @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
 	private Responsavel responsavel;
