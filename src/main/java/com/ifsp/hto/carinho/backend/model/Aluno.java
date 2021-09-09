@@ -19,6 +19,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -102,7 +103,9 @@ public class Aluno implements Serializable {
 
 	private int carteiraIdentidade;
 
-	
+	@OneToOne
+	@JoinColumn(name = "fk_escola")
+	private Escola escola;
 	
 	
 	

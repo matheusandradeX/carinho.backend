@@ -11,7 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Responsavel implements Serializable{
@@ -19,6 +21,11 @@ public class Responsavel implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
+	@OneToOne
+	@JoinColumn(name = "fk_escola")
+	private Escola escola;
+	
 	
 	private String nomeResp;
 	private Date dataNascimento;

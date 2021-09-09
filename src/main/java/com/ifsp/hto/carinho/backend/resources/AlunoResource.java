@@ -59,10 +59,6 @@ public class AlunoResource {
 	AlunoResponsavelRepository alunoResponsavelRepository;
 	
 	
-	
-	
-	
-	
 	@GetMapping("turma/{id}")
 	public List<TurmaDTO> listaAlunos (@PathVariable(value = "id") long id){
 		
@@ -75,22 +71,20 @@ public class AlunoResource {
 		return alunoRepository.listaFrequencia(id);
 	}
 	
-	
 
-	@GetMapping("alunos")
-	public List<Aluno> listaAlunos() {
-		return alunoRepository.findAll();
+	@GetMapping("/alunos/escola/{id}")
+	public List<Aluno> listaAlunosEscola(@PathVariable(value = "id") long id){
+		return alunoRepository.findByEscola(id);
 	}
-
 	
 	@GetMapping("aluno/{id}")
 	public Aluno listaAlunoUnico(@PathVariable(value = "id") long id) {
 		return alunoRepository.findById(id);
 	}
 
-	@GetMapping("alunos/{nome}")
-	public List<Aluno> listaNome(@PathVariable(value = "nome") String nome) {
-		return alunoRepository.findByNome(nome);
+	@GetMapping("alunos/{nome}/escola/{idEscola}")
+	public List<Aluno> listaNome(@PathVariable(value = "nome") String nome,@PathVariable(value = "idEscola") long idEscola) {
+		return alunoRepository.findByNome(nome,idEscola);
 
 	}
 
@@ -101,153 +95,48 @@ public class AlunoResource {
 
 	@PostMapping("/aluno")
 	public Aluno salvaAluno( String nome, int idade, MultipartFile foto ,int carteiraIdentidade, TipoGenero genero, long turma) throws IOException {
-		System.out.println("---------------");
-		System.out.println(turma);
-		//return null;
-		
 		Turma t = turmaRepository.findById(turma);	
-		
-		
-			
 		Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero,t);
-		System.out.println(aluno);
-		return alunoRepository.save(aluno);
-		
+		return alunoRepository.save(aluno);	
 	}
+	
 	@PostMapping("/aluno2")
 	public Aluno salvaAluno2( String nome, int idade, MultipartFile foto ,int carteiraIdentidade, TipoGenero genero, long turma) throws IOException {
 		Turma t = turmaRepository.findById(turma);
-	
-		System.out.println(foto.getBytes());
-	
 		Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero,t);
-		
-				return alunoRepository.save(aluno);
-		
-		
-		
-		
-	
-		
-		
-		
-		//Turma t = turmaRepository.findById(turma);	
-		
-		
-
-		//Aluno aluno = new  Aluno(nome, idade, foto, carteiraIdentidade, genero,t);
-		
-		//return alunoRepository.save(aluno);
-		
-	
-		
-	
-		
-		
-		
-	
-		
+		return alunoRepository.save(aluno);
 	}
 	
 	
 
 	@DeleteMapping("/aluno/{id}")
 	public String deletaAluno(@PathVariable(value = "id") long id) {
-		/*
-		ArrayList<ControleAluno> listaControleAluno = controleAlunoRepository.buscaFK(id);		
-		for(ControleAluno elem : listaControleAluno){
-		       System.out.println(elem.getId());
-		       controleAlunoRepository.delete(elem);       
-		}
-		long a = alunoResponsavelRepository.aaa(id);
-		alunoResponsavelRepository.deleteById(a);
-		
-		System.out.println(a);
-		
-	//alunoRepository.deleteById(id);
-		
-	//deletaAlunoSemPai(id);
-	*/
-		//Somente deletando relacionamento entidade aluno responsavel
-		
 		System.out.println("ID recebido          : "+id);
-		
 		ArrayList<Long> listIdAluno = alunoResponsavelRepository.getIdRelacionamentoAluno(id);
-		alunoResponsavelRepository.flush();
-
-		
+		alunoResponsavelRepository.flush();		
 		for(long elem : listIdAluno){			
-	
 			alunoResponsavelRepository.deleteById(elem);
 			System.out.println("ID aluno_responsavel: "+ elem +" deletado ");				
 		}
 		
-		alunoRepository.deleteById(id);
-		
-	
-		
-		//System.out.println("ID aluno_responsavel : "+idAluno);
-		
-		
-		//alunoResponsavelRepository.deleteById(idAluno);	
-		
-		//long countAlunoResponsavel = alunoResponsavelRepository.count();
-		/*
-		ArrayList<AlunoResponsavel> listaAlunoResponsavel = alunoResponsavelRepository.getListaResponsaveis(id);
-		
-		for(AlunoResponsavel ar :listaAlunoResponsavel) {
-			System.out.println(ar.getId());			
-		}
-		*/	
-		/*
-		
-		ArrayList<ControleAluno> listaControleAluno = controleAlunoRepository.buscaFK(id);		
-		
-		for(ControleAluno elem : listaControleAluno){
-		       System.out.println(elem.getId());
-		       controleAlunoRepository.delete(elem);       
-		}
-		
-		
-		*/
-		
-		
-		
-		//deletando aluno na entidade aluno
-		//alunoRepository.deleteById(id);
-		//System.out.println("   Aluno deletado");
-		
-		
+		alunoRepository.deleteById(id);	
 	return "deu certo";
 	}
-	
-	
-	
-	
-	
 	
 	@DeleteMapping("/2/aluno/{id}")
 	public String deletaAlunoSemPai(@PathVariable(value = "id") long id) {
-	
 	alunoRepository.deleteById(id);
-	
 	return "deu certo";
-		
-	
 	}
 	
-	
-	
-
 	@DeleteMapping("/aluno")
 	public void deletaAluno(@RequestBody Aluno aluno) {
-		//alunoRepository.delete(aluno);
+	//alunoRepository.delete(aluno);
 		//controleAlunoRepository.deleteById(null);
 	}
 
 	@PutMapping("/aluno")
 	public String salvaAlunos(int id_aluno,String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero, int id_turma) throws IOException {
-		
 		//Turma turma2 = new Turma(numeroTurma, professorResponsavel);
 		
 		//Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero,turma);
@@ -256,7 +145,6 @@ public class AlunoResource {
 		try { 
 			
 		Turma turma_teste = turmaRepository.findById(id_turma);	
-			
 		Aluno userFromDb = alunoRepository.findById(id_aluno);
 	    userFromDb.setNome(nome);
 	    userFromDb.setIdade(idade);
@@ -267,31 +155,16 @@ public class AlunoResource {
 	    
 	    alunoRepository.save(userFromDb); 
 	    
-	    
-	  
 	    return "deu certo!";
-
-			
+	    
 		}catch(Exception e){
 			   e.printStackTrace();
-			   return "deu erro!";
-			   
+			   return "deu erro!";	   
 		}
 	   
-			
-			
-	
-		
-		
-		
 		//return alunoRepository.save(aluno);
 		
 		//return null;
 		
 	}
-
-
-	
-	
-
 }

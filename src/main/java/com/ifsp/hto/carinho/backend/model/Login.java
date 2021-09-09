@@ -8,6 +8,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Login implements Serializable {
@@ -17,6 +19,10 @@ public class Login implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@OneToOne
+	@JoinColumn(name = "fk_escola")
+	private Escola escola;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;

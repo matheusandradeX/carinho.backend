@@ -40,12 +40,12 @@ public class LoginResource {
 	
 	
 	@PostMapping("/login")
-	public Login autenticar(String nome, String senha) throws NoSuchAlgorithmException {
+	public Login autenticar(String nome, String senha,long idEscola) throws NoSuchAlgorithmException {
 		
 		 String senhaCriptografada = MD5.stringToMD5(senha);  
 		 System.out.println(senhaCriptografada);
 		
-		Login resultLogin = loginRepository.validarUsuario(nome,  senhaCriptografada);	
+		Login resultLogin = loginRepository.validarUsuario(nome,  senhaCriptografada,idEscola);	
 		if (resultLogin!= null) {
 			
 						

@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -27,7 +28,9 @@ public class Turma implements Serializable{
 	private String numeroTurma;
 	
 	
-	
+	@OneToOne
+	@JoinColumn(name = "fk_escola")
+	private Escola escola;
 	
 	
 	public long getId() {

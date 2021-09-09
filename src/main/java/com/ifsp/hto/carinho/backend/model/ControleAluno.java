@@ -73,4 +73,8 @@ public class ControleAluno implements Serializable {
 		this.tipoHorario = tipoHorario;
 	}
 
+	@OneToOne
+	@JoinColumn(name = "fk_escola")
+	private Escola escola;
+	
 }

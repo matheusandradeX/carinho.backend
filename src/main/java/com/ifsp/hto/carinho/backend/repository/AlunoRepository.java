@@ -29,8 +29,8 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 	@Query(value = "SELECT COUNT(id) from aluno", nativeQuery = true)
 	Integer teste();
 
-	@Query(value = "SELECT * FROM `aluno` WHERE nome LIKE :nomeA%", nativeQuery = true)
-	List<Aluno> findByNome(@Param("nomeA") String nome);
+	@Query(value = "SELECT * FROM `aluno` WHERE nome LIKE :nomeA% and fk_escola=:idEscola", nativeQuery = true)
+	List<Aluno> findByNome(@Param("nomeA") String nome,@Param("idEscola") long idEscola);
 
 	@Query(value = "SELECT responsavel.id,responsavel.carteira_identidade,responsavel.nome_resp from aluno_responsavel inner join aluno on aluno.id = aluno_responsavel.nome inner join responsavel on responsavel.id = aluno_responsavel.nome_resp WHERE aluno_responsavel.nome=:id", nativeQuery = true)
 	List<ResponsavelDTO> responsavel(@Param("id") int id);
@@ -42,6 +42,12 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 			+ "= controle_aluno.fk_aluno WHERE controle_aluno.fk_aluno ORDER BY `controle_aluno`.`horario`"
 			+ " DESC LIMIT ?1", countQuery = "SELECT COUNT(id) from aluno", nativeQuery = true)
 	List<AlunoDTO> todosAlunos(Long var);
+	
+	
+	@Query(value = "SELECT * FROM `aluno` WHERE fk_escola=:id", nativeQuery = true)
+	List<Aluno> findByEscola(@Param("id") long id);
+	
+	
 
 
 
