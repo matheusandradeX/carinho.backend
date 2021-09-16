@@ -33,11 +33,13 @@ import com.ifsp.hto.carinho.backend.dto.TurmaDTO;
 import com.ifsp.hto.carinho.backend.model.Aluno;
 import com.ifsp.hto.carinho.backend.model.AlunoResponsavel;
 import com.ifsp.hto.carinho.backend.model.ControleAluno;
+import com.ifsp.hto.carinho.backend.model.Escola;
 import com.ifsp.hto.carinho.backend.model.TipoGenero;
 import com.ifsp.hto.carinho.backend.model.Turma;
 import com.ifsp.hto.carinho.backend.repository.AlunoRepository;
 import com.ifsp.hto.carinho.backend.repository.AlunoResponsavelRepository;
 import com.ifsp.hto.carinho.backend.repository.ControleAlunoRepository;
+import com.ifsp.hto.carinho.backend.repository.EscolaRepository;
 import com.ifsp.hto.carinho.backend.repository.TurmaRepository;
 import com.ifsp.hto.carinho.backend.wrapper.FormWrapper;
 import com.mysql.cj.jdbc.Blob;
@@ -58,6 +60,8 @@ public class AlunoResource {
 	@Autowired(required = true)
 	AlunoResponsavelRepository alunoResponsavelRepository;
 	
+	@Autowired(required = true)
+	EscolaRepository escolaRepository;
 	
 	@GetMapping("turma/{id}")
 	public List<TurmaDTO> listaAlunos (@PathVariable(value = "id") long id){
@@ -71,7 +75,7 @@ public class AlunoResource {
 		return alunoRepository.listaFrequencia(id);
 	}
 	
-
+	  
 	@GetMapping("/alunos/escola/{id}")
 	public List<Aluno> listaAlunosEscola(@PathVariable(value = "id") long id){
 		return alunoRepository.findByEscola(id);
@@ -94,16 +98,22 @@ public class AlunoResource {
 	}
 
 	@PostMapping("/aluno")
-	public Aluno salvaAluno( String nome, int idade, MultipartFile foto ,int carteiraIdentidade, TipoGenero genero, long turma) throws IOException {
+	public Aluno salvaAluno( String nome, int idade, MultipartFile foto ,int carteiraIdentidade, TipoGenero genero, long turma, long escola) throws IOException {
+		
 		Turma t = turmaRepository.findById(turma);	
-		Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero,t);
+		
+		Escola e = escolaRepository.findById(escola);
+
+		
+		Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero,t,e);
+		
 		return alunoRepository.save(aluno);	
 	}
 	
 	@PostMapping("/aluno2")
-	public Aluno salvaAluno2( String nome, int idade, MultipartFile foto ,int carteiraIdentidade, TipoGenero genero, long turma) throws IOException {
+	public Aluno salvaAluno2( String nome, int idade, MultipartFile foto ,int carteiraIdentidade, TipoGenero genero, long turma, Escola escola) throws IOException {
 		Turma t = turmaRepository.findById(turma);
-		Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero,t);
+		Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero,t, escola);
 		return alunoRepository.save(aluno);
 	}
 	

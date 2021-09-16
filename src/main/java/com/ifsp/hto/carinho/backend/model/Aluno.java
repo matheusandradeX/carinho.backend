@@ -103,12 +103,20 @@ public class Aluno implements Serializable {
 
 	private int carteiraIdentidade;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "fk_escola")
 	private Escola escola;
 	
 	
 	
+	public Escola getEscola() {
+		return escola;
+	}
+
+	public void setEscola(Escola escola) {
+		this.escola = escola;
+	}
+
 	public Turma getTurma() {
 		return turma;
 	}
@@ -141,13 +149,14 @@ public class Aluno implements Serializable {
 
 
 
-	public Aluno(String nome, int idade, byte[] foto,int carteiraIdentidade,TipoGenero genero, Turma turma) {
+	public Aluno(String nome, int idade, byte[] foto,int carteiraIdentidade,TipoGenero genero, Turma turma, Escola escola) {
 		this.nome = nome;
 		this.idade = idade;
 		this.genero = genero;
 		this.carteiraIdentidade = carteiraIdentidade;
 		this.foto = foto;
 		this.turma = turma;
+		this.escola = escola;
 		
 		
 		

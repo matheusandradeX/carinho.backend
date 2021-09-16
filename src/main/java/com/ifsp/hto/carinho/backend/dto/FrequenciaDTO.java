@@ -10,10 +10,11 @@ public interface FrequenciaDTO {
 
 	public String getNome();
 	
-	@JsonFormat(pattern = "dd/MM/yyy", shape = Shape.STRING)
+	@JsonFormat(pattern = "HH:mm:ss ", shape = Shape.STRING)
 	public Date getHorario();
 
-	
+	@JsonFormat(pattern = "dd/MM/yyyy ", shape = Shape.STRING)
+	public Date getdataRegistro();
 	
 	
 	public TipoHorario getTipo_Horario();

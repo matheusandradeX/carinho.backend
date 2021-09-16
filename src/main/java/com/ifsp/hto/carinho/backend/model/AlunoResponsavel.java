@@ -15,8 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ifsp.hto.carinho.backend.repository.AlunoRepository;
-import com.ifsp.hto.carinho.backend.repository.ResponsavelRepository;
 
 @Entity
 public class AlunoResponsavel implements Serializable {
@@ -80,9 +78,6 @@ public class AlunoResponsavel implements Serializable {
 		this.responsavel = r;
 	}
 
-	public AlunoResponsavel() {
-		
-	}
 
 	
 	

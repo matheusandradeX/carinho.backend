@@ -20,7 +20,7 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 	@Query(value= "select aluno.id,aluno.nome,aluno.carteira_identidade,aluno.genero,turma.numero_turma from turma inner join aluno ON (aluno.fk_turma_id = turma.id)  WHERE turma.id =:numero",nativeQuery = true)
 	List<TurmaDTO>  listaTurmas(@Param("numero") long id);
 	
-	@Query(value= "SELECT aluno.nome ,controle_aluno.tipo_horario, controle_aluno.horario as dataRegistro, controle_aluno.horario from aluno inner JOIN controle_aluno on controle_aluno.fk_aluno = aluno.id INNER JOIN turma on turma.id = aluno.fk_turma_id WHERE turma.id =:numero", nativeQuery = true)
+	@Query(value= "SELECT aluno.nome ,controle_aluno.tipo_horario, controle_aluno.horario, controle_aluno.horario as dataRegistro from aluno inner JOIN controle_aluno on controle_aluno.fk_aluno = aluno.id INNER JOIN turma on turma.id = aluno.fk_turma_id WHERE turma.id =:numero", nativeQuery = true)
 	List<FrequenciaDTO> listaFrequencia(@Param("numero") long id) ;
 	
 	

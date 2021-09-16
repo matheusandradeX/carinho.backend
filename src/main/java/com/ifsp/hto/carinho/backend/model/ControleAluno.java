@@ -25,16 +25,19 @@ public class ControleAluno implements Serializable {
 
 	@Enumerated(value = EnumType.STRING)
 	private TipoHorario tipoHorario;
+	
+	
 
 	public ControleAluno() {
 
 	}
 
-	public ControleAluno(ZonedDateTime horario, TipoHorario tipoHorario, Aluno aluno) {
+	public ControleAluno(ZonedDateTime horario, TipoHorario tipoHorario, Aluno aluno,Escola escola) {
 		super();
 		this.horario = horario;
 		this.tipoHorario = tipoHorario;
 		this.aluno = aluno;
+		this.escola = escola;
 	}
 
 	public Aluno getAluno() {

@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ifsp.hto.carinho.backend.dto.ControleAlunoDTO;
 import com.ifsp.hto.carinho.backend.model.Aluno;
 import com.ifsp.hto.carinho.backend.model.ControleAluno;
+import com.ifsp.hto.carinho.backend.model.TipoHorario;
 import com.ifsp.hto.carinho.backend.repository.AlunoRepository;
 import com.ifsp.hto.carinho.backend.repository.ControleAlunoRepository;
+import com.ifsp.hto.carinho.backend.repository.EscolaRepository;
 import com.ifsp.hto.carinho.backend.util.Utility;
 import com.ifsp.hto.carinho.backend.wrapper.ControleAlunoWrapper;
 
@@ -25,30 +27,42 @@ import com.ifsp.hto.carinho.backend.wrapper.ControleAlunoWrapper;
 @RequestMapping(value = "/api")
 @CrossOrigin(origins = "*")
 public class ControleAlunoResource {
-
+	@Autowired(required = true)
+	EscolaRepository escolaRepository;
+	
+	
 	@Autowired(required = true)
 	AlunoRepository alunoRepository;
 
 	@Autowired(required = true)
 	ControleAlunoRepository controleAlunoRepository;
 
-	@PostMapping("/controle")
-	public ControleAluno lista(@RequestBody ControleAlunoWrapper controleAlunoWrapper) {	
-		System.out.println("-------------------------------");
-		System.out.println(controleAlunoWrapper);
-		System.out.println(controleAlunoWrapper.getId());
-		System.out.println(controleAlunoWrapper.getTipoHorario());
 
+	@PostMapping("/controle")
+	public ControleAluno lista2(TipoHorario tipoHorario,long idAluno) {	
+		
+		
+		System.out.println("---------Controle Aluno--------");
+		System.out.println("Tipo horario: "+tipoHorario);
+		System.out.println("id aluno    : "+idAluno);
+		
+		Aluno al = alunoRepository.findById(idAluno);
+		
 		ControleAluno controleAluno = new ControleAluno(
-				Utility.getDate("Brazil/East"),
-				controleAlunoWrapper.getTipoHorario(), 
-				alunoRepository.findById(controleAlunoWrapper.getId())
+				Utility.getDate("Brazil/East"),tipoHorario,al,al.getEscola()
 				);
+		
+		
+		System.out.println("Fk_escola:");
+		System.out.println(controleAluno.getAluno().getEscola().getId());
+		
 		
 		
 		return controleAlunoRepository.save(controleAluno);
 		
 		}
+	
+	
 
 	@GetMapping("/controle")
 	public ResponseEntity<List<ControleAluno>> listaHorario() {
@@ -57,10 +71,15 @@ public class ControleAlunoResource {
 
 	}
 	
-	@GetMapping("/ultimoRegistro/{id}")
-	public ControleAlunoDTO ultimoRegistro(@PathVariable(value = "id")long id ) {
-		long cont = controleAlunoRepository.cont(id);
-			return controleAlunoRepository.resultado(cont,id);
+	@GetMapping("/ultimoRegistro/aluno/{idAluno}/escola/{idEscola}")
+	public ControleAlunoDTO ultimoRegistro(@PathVariable(value = "idAluno")long idAluno,@PathVariable(value = "idEscola")long idEscola ) {
+		System.out.println("-------------------------");
+		System.out.println("id aluno : "+idAluno);
+		System.out.println("id escola: "+idEscola);
+		
+		long cont = controleAlunoRepository.cont(idAluno,idEscola);
+		return controleAlunoRepository.resultado(cont,idAluno,idEscola);
+		
 	}
 
 }
