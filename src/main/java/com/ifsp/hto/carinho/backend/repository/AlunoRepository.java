@@ -23,7 +23,8 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 	@Query(value= "SELECT aluno.nome ,controle_aluno.tipo_horario, controle_aluno.horario as dataRegistro, controle_aluno.horario from aluno inner JOIN controle_aluno on controle_aluno.fk_aluno = aluno.id INNER JOIN turma on turma.id = aluno.fk_turma_id WHERE turma.id =:numero", nativeQuery = true)
 	List<FrequenciaDTO> listaFrequencia(@Param("numero") long id) ;
 	
-	
+	@Query(value= "SELECT * from aluno WHERE fk_escola = :idEscola ",nativeQuery = true)
+	List<Aluno>  findAlunoByEscola(@Param("idEscola") long idEscola);
 	
 
 	@Query(value = "SELECT COUNT(id) from aluno", nativeQuery = true)

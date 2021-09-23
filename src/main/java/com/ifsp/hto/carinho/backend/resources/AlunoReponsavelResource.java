@@ -73,7 +73,11 @@ public class AlunoReponsavelResource {
 	}
 
 	
-	
+	@GetMapping("/testeAmazon")
+	public String  testeAmazon(){
+		
+		return "Servidor está Online!";
+	}
 		
 		
 }

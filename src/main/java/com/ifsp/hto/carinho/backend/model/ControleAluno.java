@@ -3,6 +3,7 @@ package com.ifsp.hto.carinho.backend.model;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,8 +11,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.hibernate.envers.Audited;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+@Audited
 @Entity
 public class ControleAluno implements Serializable {
 
@@ -26,19 +32,8 @@ public class ControleAluno implements Serializable {
 	@Enumerated(value = EnumType.STRING)
 	private TipoHorario tipoHorario;
 	
-	
-
-	public ControleAluno() {
-
-	}
-
-	public ControleAluno(ZonedDateTime horario, TipoHorario tipoHorario, Aluno aluno,Escola escola) {
-		super();
-		this.horario = horario;
-		this.tipoHorario = tipoHorario;
-		this.aluno = aluno;
-		this.escola = escola;
-	}
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Aluno aluno;
 
 	public Aluno getAluno() {
 		return aluno;
@@ -48,9 +43,29 @@ public class ControleAluno implements Serializable {
 		this.aluno = aluno;
 	}
 
-	@OneToOne
-	@JoinColumn(name = "fk_aluno")
-	private Aluno aluno;
+	public ControleAluno() {
+
+	}
+
+	public ControleAluno(ZonedDateTime horario, TipoHorario tipoHorario,Escola escola) {
+		super();
+		this.horario = horario;
+		this.tipoHorario = tipoHorario;
+
+		this.escola = escola;
+	}
+	
+
+
+
+
+	public Escola getEscola() {
+		return escola;
+	}
+
+	public void setEscola(Escola escola) {
+		this.escola = escola;
+	}
 
 	public long getId() {
 		return id;

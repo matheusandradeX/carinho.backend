@@ -2,10 +2,14 @@ package com.ifsp.hto.carinho.backend.model;
 
 import java.io.Serializable;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.hibernate.envers.Audited;
+@Audited
 @Entity
 public class Escola implements Serializable {
 	/**

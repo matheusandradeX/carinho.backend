@@ -2,6 +2,7 @@ package com.ifsp.hto.carinho.backend.resources;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +42,7 @@ import com.ifsp.hto.carinho.backend.repository.AlunoResponsavelRepository;
 import com.ifsp.hto.carinho.backend.repository.ControleAlunoRepository;
 import com.ifsp.hto.carinho.backend.repository.EscolaRepository;
 import com.ifsp.hto.carinho.backend.repository.TurmaRepository;
+import com.ifsp.hto.carinho.backend.wrapper.AlunoControleAlunoWrapper;
 import com.ifsp.hto.carinho.backend.wrapper.FormWrapper;
 import com.mysql.cj.jdbc.Blob;
 
@@ -56,6 +58,7 @@ public class AlunoResource {
 	
 	@Autowired(required = true)
 	ControleAlunoRepository controleAlunoRepository;
+	
 
 	@Autowired(required = true)
 	AlunoResponsavelRepository alunoResponsavelRepository;
@@ -80,6 +83,44 @@ public class AlunoResource {
 	public List<Aluno> listaAlunosEscola(@PathVariable(value = "id") long id){
 		return alunoRepository.findByEscola(id);
 	}
+	@GetMapping("/alunos2/escola/{id}")
+	public ArrayList<AlunoControleAlunoWrapper> listaAlunosEscola2(@PathVariable(value = "id") long idEscola){
+		
+		
+		
+		ArrayList<AlunoControleAlunoWrapper> listACW = new ArrayList();
+		
+		
+		
+     
+		for (Aluno newAluno : alunoRepository.findAlunoByEscola(idEscola)) {		
+			
+			long cont = controleAlunoRepository.cont(newAluno.getId(),idEscola);		
+			
+			//ControleAluno ca = 
+			
+			System.out.println(controleAlunoRepository.resultado2(cont,newAluno.getId(),idEscola));
+			
+		    
+			/*
+			if(controleAlunoRepository.resultado2(cont,newAluno.getId(),idEscola) == null) {
+				ca = new ControleAluno();
+			}else {
+				ca = controleAlunoRepository.resultado2(cont,newAluno.getId(),idEscola);
+			}
+			
+			
+			AlunoControleAlunoWrapper alunoControleAlunoWrapper = new AlunoControleAlunoWrapper(newAluno,ca);
+			
+			listACW.add(alunoControleAlunoWrapper);
+			*/
+        }
+		
+	//return listACW;
+	return null;
+	}
+	
+	
 	
 	@GetMapping("aluno/{id}")
 	public Aluno listaAlunoUnico(@PathVariable(value = "id") long id) {
@@ -177,4 +218,7 @@ public class AlunoResource {
 		//return null;
 		
 	}
+	
+	
+	
 }

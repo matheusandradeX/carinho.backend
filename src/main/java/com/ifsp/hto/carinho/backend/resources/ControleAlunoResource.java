@@ -49,12 +49,12 @@ public class ControleAlunoResource {
 		Aluno al = alunoRepository.findById(idAluno);
 		
 		ControleAluno controleAluno = new ControleAluno(
-				Utility.getDate("Brazil/East"),tipoHorario,al,al.getEscola()
+				Utility.getDate("Brazil/East"),tipoHorario,al.getEscola()
 				);
 		
 		
 		System.out.println("Fk_escola:");
-		System.out.println(controleAluno.getAluno().getEscola().getId());
+	//	System.out.println(controleAluno.getAluno().getEscola().getId());
 		
 		
 		
@@ -78,8 +78,23 @@ public class ControleAlunoResource {
 		System.out.println("id escola: "+idEscola);
 		
 		long cont = controleAlunoRepository.cont(idAluno,idEscola);
+		
+		System.out.println("O VALOR DE CONT É: "+cont);
 		return controleAlunoRepository.resultado(cont,idAluno,idEscola);
 		
 	}
+	
+	@GetMapping("/ultimoResgistro")
+	public List<ControleAluno> ultimoRegistros() {
+		
+		
+		return  controleAlunoRepository.findAll();
+	}
+	
+	
+	
+	
+	
+	
 
 }
