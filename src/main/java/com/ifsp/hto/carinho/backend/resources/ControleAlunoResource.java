@@ -1,5 +1,6 @@
 package com.ifsp.hto.carinho.backend.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,11 +85,22 @@ public class ControleAlunoResource {
 		
 	}
 	
-	@GetMapping("/ultimoResgistro")
-	public List<ControleAluno> ultimoRegistros() {
+	@GetMapping("/ultimoResgistro/{idEscola}")
+	public List<ControleAluno> ultimoRegistros(@PathVariable(value = "idEscola")long idEscola) {
 		
+		System.out.println(controleAlunoRepository.myFindAll(idEscola));
 		
-		return  controleAlunoRepository.findAll();
+		 List<ControleAluno> listacontroleAluno = controleAlunoRepository.myFindAll(idEscola);
+	 
+		 List<ControleAluno> newlistacontroleAluno = new ArrayList<ControleAluno>();
+		 
+	     for(ControleAluno thisControleAluno : listacontroleAluno){
+		         
+	         newlistacontroleAluno.add(thisControleAluno);
+	          
+	     }
+		
+		return newlistacontroleAluno;
 	}
 	
 	

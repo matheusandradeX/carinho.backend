@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -21,6 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
@@ -29,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Audited
 @Entity
 public class Aluno implements Serializable {
@@ -56,16 +59,15 @@ public class Aluno implements Serializable {
 	@JoinColumn(name = "fk_escola")
 	private Escola escola;
 	
-	@NotAudited
-	@OneToMany
+	
+	@OneToMany(cascade={CascadeType.ALL})
 	private List<ControleAluno> l_ControleAluno;
 	
 	
-
+	
 	public List<ControleAluno> getL_ControleAluno() {
 		return l_ControleAluno;
 	}
-
 
 
 	public void setL_ControleAluno(List<ControleAluno> l_ControleAluno) {

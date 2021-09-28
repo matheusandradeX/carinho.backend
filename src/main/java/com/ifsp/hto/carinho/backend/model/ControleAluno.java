@@ -32,17 +32,12 @@ public class ControleAluno implements Serializable {
 	@Enumerated(value = EnumType.STRING)
 	private TipoHorario tipoHorario;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Aluno aluno;
+	//@ManyToOne(cascade = CascadeType.ALL)
+	//private Aluno aluno;
 
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
-	}
-
+	
+	
+	
 	public ControleAluno() {
 
 	}

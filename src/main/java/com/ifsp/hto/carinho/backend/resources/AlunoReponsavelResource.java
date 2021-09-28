@@ -54,13 +54,9 @@ public class AlunoReponsavelResource {
 			System.out.println(alunoId);
 			System.out.println(responsavelId);
 			
-			
 			Aluno a =  alunoRepository.findById(alunoId);
 			Responsavel r = responsavelRepository.findById(responsavelId);		
-			
-			
-			
-		
+	
 			AlunoResponsavel ar = new AlunoResponsavel(a,r);
 			
 			return alunoresponsavel.save(ar);

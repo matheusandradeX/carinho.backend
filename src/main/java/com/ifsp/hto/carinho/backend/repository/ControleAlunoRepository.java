@@ -16,8 +16,14 @@ public interface ControleAlunoRepository extends JpaRepository<ControleAluno,Lon
 	
 	ControleAluno findById(long id);
 	
+	List<ControleAluno> findAll();
+	
 	@Query(value = "SELECT * FROM controle_aluno", nativeQuery = true)
 	List<ControleAlunoDTO> save2();
+	
+	
+	@Query(value = "SELECT * FROM controle_aluno where fk_escola =:idEscola", nativeQuery = true)
+	List<ControleAluno> myFindAll(@Param("idEscola") long idEscola);
 
 	
 	
