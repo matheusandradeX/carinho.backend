@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import org.hibernate.envers.Audited;
-@Audited
+
 @Entity
 public class Login implements Serializable {
 

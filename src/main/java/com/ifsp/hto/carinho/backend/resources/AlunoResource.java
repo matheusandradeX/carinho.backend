@@ -1,6 +1,7 @@
 package com.ifsp.hto.carinho.backend.resources;
 
 import java.io.IOException;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -32,11 +33,14 @@ import com.ifsp.hto.carinho.backend.dto.AlunoDTO;
 import com.ifsp.hto.carinho.backend.dto.FrequenciaDTO;
 import com.ifsp.hto.carinho.backend.dto.TurmaDTO;
 import com.ifsp.hto.carinho.backend.model.Aluno;
+import com.ifsp.hto.carinho.backend.model.AlunoControleAluno;
 import com.ifsp.hto.carinho.backend.model.AlunoResponsavel;
 import com.ifsp.hto.carinho.backend.model.ControleAluno;
 import com.ifsp.hto.carinho.backend.model.Escola;
 import com.ifsp.hto.carinho.backend.model.TipoGenero;
+import com.ifsp.hto.carinho.backend.model.TipoHorario;
 import com.ifsp.hto.carinho.backend.model.Turma;
+import com.ifsp.hto.carinho.backend.repository.AlunoControleAlunoRepository;
 import com.ifsp.hto.carinho.backend.repository.AlunoRepository;
 import com.ifsp.hto.carinho.backend.repository.AlunoResponsavelRepository;
 import com.ifsp.hto.carinho.backend.repository.ControleAlunoRepository;
@@ -59,6 +63,9 @@ public class AlunoResource {
 	@Autowired(required = true)
 	ControleAlunoRepository controleAlunoRepository;
 	
+	@Autowired(required = true)
+	AlunoControleAlunoRepository alunoControleAlunoRepository;
+	
 
 	@Autowired(required = true)
 	AlunoResponsavelRepository alunoResponsavelRepository;
@@ -78,67 +85,109 @@ public class AlunoResource {
 		return alunoRepository.listaFrequencia(id);
 	}
 	
-	  
+	  /*
 	@GetMapping("/alunos/escola/{id}")
 	public List<AlunoControleAlunoWrapper> listaAlunosEscola(@PathVariable(value = "id") long id){
 		
 		List<AlunoControleAlunoWrapper> listaAlunoControleAlunoWrapper = new ArrayList<AlunoControleAlunoWrapper>();
-	
-		
 		List<Aluno> la = alunoRepository.findByEscola(id);	
-		
-		
 		
 		for (Aluno newAluno : la) {
 			AlunoControleAlunoWrapper newWrapper;
 			if (!newAluno.getL_ControleAluno().isEmpty()) {
-				System.out.println("ENTROU AQUI");
+			
 				int tamanhoLista = (newAluno.getL_ControleAluno().size() - 1);
-				 newWrapper = new AlunoControleAlunoWrapper(newAluno.getId(),newAluno.getNome(),newAluno.getIdade(),newAluno.getGenero(),newAluno.getDataNascimento(),newAluno.getCarteiraIdentidade(),newAluno.getEscola(),newAluno.getL_ControleAluno().get(tamanhoLista));
-      		}else {		
-				newWrapper = new AlunoControleAlunoWrapper(newAluno.getId(),newAluno.getNome(),newAluno.getIdade(),newAluno.getGenero(),newAluno.getDataNascimento(),newAluno.getCarteiraIdentidade(),newAluno.getEscola(),null);
+				 newWrapper = new AlunoControleAlunoWrapper(newAluno.getId(),newAluno.getNome(),newAluno.getIdade(),newAluno.getGenero(),newAluno.getDataNascimento(),newAluno.getCarteiraIdentidade(),newAluno.getEscola(),newAluno.getL_ControleAluno().get(tamanhoLista),newAluno.getFoto());
+      		}else {	
+				newWrapper = new AlunoControleAlunoWrapper(newAluno.getId(),newAluno.getNome(),newAluno.getIdade(),newAluno.getGenero(),newAluno.getDataNascimento(),newAluno.getCarteiraIdentidade(),newAluno.getEscola(),null, newAluno.getFoto());
 			}
 			
 			listaAlunoControleAlunoWrapper.add(newWrapper);		
 			
-			
-			
+		}
+		return listaAlunoControleAlunoWrapper; 
+	}
+	
+	
+	
+	@GetMapping("testeAluno/{idAluno}/escola/{idEscola}")
+	public AlunoControleAlunoWrapper listaAlunoUnico(@PathVariable(value = "idAluno") long idAluno,@PathVariable(value = "idEscola") long idEscola) {
+		AlunoControleAlunoWrapper alunoWrapper = new AlunoControleAlunoWrapper();
+		Aluno aluno = alunoRepository.findByidAluno(idAluno, idEscola);
+		
+			int tamanho = aluno.getL_ControleAluno().size() -1;
+			if (!aluno.getL_ControleAluno().isEmpty()) {
+				alunoWrapper = new AlunoControleAlunoWrapper(aluno.getId(),aluno.getNome()
+						,aluno.getIdade(), aluno.getGenero(),aluno.getDataNascimento(),aluno.getCarteiraIdentidade(),
+						aluno.getEscola(),aluno.getL_ControleAluno().get(tamanho),aluno.getFoto());
+			}else {
+				
+			alunoWrapper = new AlunoControleAlunoWrapper(aluno.getId(),aluno.getNome()
+			,aluno.getIdade(), aluno.getGenero(),aluno.getDataNascimento(),aluno.getCarteiraIdentidade(),
+			aluno.getEscola(),null,aluno.getFoto());
+			}
+		return alunoWrapper;
+	}
+	*/
+	@GetMapping("testeAluno/{idAluno}/escola/{idEscola}")
+	public AlunoControleAluno listaAlunoUnico(@PathVariable(value = "idAluno") long idAluno,@PathVariable(value = "idEscola") long idEscola) {
+
+		AlunoControleAluno alunoControleAluno ;
+		
+		alunoControleAluno = alunoControleAlunoRepository.findByidControleAluno(idAluno, idEscola);
+		
+		
+		return alunoControleAluno;
+	}
+	
+	
+	@GetMapping("/alunos/escola/{id}")
+	public List<AlunoControleAluno> listaAlunosEscola(@PathVariable(value = "id") long id){
+		
+		List<AlunoControleAluno> listaAlunoControleAluno = new ArrayList<AlunoControleAluno>();
+		
+		
+		List<Long> listAllId = alunoControleAlunoRepository.getAllId();	
+		
+		
+		alunoControleAlunoRepository.findAllById(listAllId);
+		
+		for  (long idd: listAllId) {			
+		
+			listaAlunoControleAluno.add(alunoControleAlunoRepository.eee(idd));
 		}
 		
 		
-		return listaAlunoControleAlunoWrapper; 
-
+		return listaAlunoControleAluno;
+		
+		
 	}
+	
+	
+	@GetMapping("/aluno/{idAluno}/escola/{id}")
+	public List<AlunoControleAlunoWrapper> ultimoRegistroAluno(@PathVariable(value = "id") long id,@PathVariable(value = "idAluno") long idAluno  ){
+		
+		Aluno aluno = alunoRepository.findById(idAluno);
+		 
+		
+	return null;
+	}
+	
+	
 	@GetMapping("/alunos2/escola/{id}")
 	public ArrayList<AlunoControleAlunoWrapper> listaAlunosEscola2(@PathVariable(value = "id") long idEscola){
-		
 		ArrayList<AlunoControleAlunoWrapper> listACW = new ArrayList();
-		
 		for (Aluno newAluno : alunoRepository.findAlunoByEscola(idEscola)) {		
-			
 			long cont = controleAlunoRepository.cont(newAluno.getId(),idEscola);		 
-			
 			System.out.println(controleAlunoRepository.resultado2(cont,newAluno.getId(),idEscola));
-			
-		    
-	
-
-			
-		//	AlunoControleAlunoWrapper alunoControleAlunoWrapper = new AlunoControleAlunoWrapper(newAluno,ca);
-	
-        }
+		//AlunoControleAlunoWrapper alunoControleAlunoWrapper = new AlunoControleAlunoWrapper(newAluno,ca);
+		}
 		
 	return listACW;
 
 	}
 	
 	
-	
-	@GetMapping("aluno/{id}")
-	public Aluno listaAlunoUnico(@PathVariable(value = "id") long id) {
-		return alunoRepository.findById(id);
-	}
-
 	@GetMapping("alunos/{nome}/escola/{idEscola}")
 	public List<Aluno> listaNome(@PathVariable(value = "nome") String nome,@PathVariable(value = "idEscola") long idEscola) {
 		return alunoRepository.findByNome(nome,idEscola);
@@ -151,13 +200,20 @@ public class AlunoResource {
 	}
 
 	@PostMapping("/aluno")
-	public Aluno salvaAluno( String nome, int idade, MultipartFile foto ,int carteiraIdentidade, TipoGenero genero, long turma, long escola) throws IOException {
-		
-		Turma t = turmaRepository.findById(turma);	
+	public void salvaAluno( String nome, int idade, MultipartFile foto ,int carteiraIdentidade, TipoGenero genero, long turma, long escola) throws IOException {
+				
+		Turma t = turmaRepository.findById(turma);
+		turmaRepository.flush();
 		Escola e = escolaRepository.findById(escola);
+	
 		Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero,t,e);
+		 alunoRepository.save(aluno);	
+		 
+		 ControleAluno controleAluno = new ControleAluno( TipoHorario.NOVO, aluno);
 		
-		return alunoRepository.save(aluno);	
+		AlunoControleAluno alunoControleAluno = new AlunoControleAluno(aluno, controleAluno, aluno.getEscola());
+		
+		alunoControleAlunoRepository.save(alunoControleAluno);
 	}
 	
 	@PostMapping("/aluno2")

@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 import org.hibernate.envers.Audited;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-@Audited
+
 @Entity
 public class AlunoTurma implements Serializable {
 

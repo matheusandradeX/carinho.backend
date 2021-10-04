@@ -32,7 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-@Audited
+
 @Entity
 public class Aluno implements Serializable {
 
@@ -60,19 +60,6 @@ public class Aluno implements Serializable {
 	private Escola escola;
 	
 	
-	@OneToMany(cascade={CascadeType.ALL})
-	private List<ControleAluno> l_ControleAluno;
-	
-	
-	
-	public List<ControleAluno> getL_ControleAluno() {
-		return l_ControleAluno;
-	}
-
-
-	public void setL_ControleAluno(List<ControleAluno> l_ControleAluno) {
-		this.l_ControleAluno = l_ControleAluno;
-	}
 
 	@ManyToOne
 	@JoinColumn(name = "fk_turma_id",insertable = true,updatable = true)
@@ -226,7 +213,7 @@ public class Aluno implements Serializable {
 	
 	
 
-
+/*
 
 	public Aluno(String nome, int idade, TipoGenero genero, Date dataNascimento, int carteiraIdentidade, Escola escola,
 			List<ControleAluno> l_ControleAluno, Turma turma, byte[] foto) {
@@ -240,14 +227,10 @@ public class Aluno implements Serializable {
 		this.turma = turma;
 		this.foto = foto;
 	}
+*/
 
 
 
-
-
-
-	
-	
 	
 
 }

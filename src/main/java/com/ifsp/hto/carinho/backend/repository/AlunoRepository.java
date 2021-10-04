@@ -48,8 +48,10 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 	@Query(value = "SELECT * FROM `aluno` WHERE fk_escola=:id", nativeQuery = true)
 	List<Aluno> findByEscola(@Param("id") long id);
 	
+	@Query(value = "SELECT * FROM `aluno` WHERE id=:idAluno and fk_escola=:idEscola", nativeQuery = true)
+	Aluno findByidAluno(@Param("idAluno") long idAluno,@Param("idEscola") long idEscola);
 	
-
+	
 
 
 }

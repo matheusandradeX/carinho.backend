@@ -16,7 +16,7 @@ import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 
 import org.hibernate.envers.Audited;
-@Audited
+
 @Entity
 public class Responsavel implements Serializable{
 

@@ -17,7 +17,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 
-@Audited
+
 @Entity
 public class Turma implements Serializable{
 

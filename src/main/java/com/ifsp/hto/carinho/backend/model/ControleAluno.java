@@ -17,7 +17,8 @@ import javax.persistence.OneToOne;
 import org.hibernate.envers.Audited;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-@Audited
+import com.ifsp.hto.carinho.backend.util.Utility;
+
 @Entity
 public class ControleAluno implements Serializable {
 
@@ -32,28 +33,15 @@ public class ControleAluno implements Serializable {
 	@Enumerated(value = EnumType.STRING)
 	private TipoHorario tipoHorario;
 	
-	//@ManyToOne(cascade = CascadeType.ALL)
-	//private Aluno aluno;
+	@OneToOne
+	@JoinColumn(name = "fk_escola")
+	private Escola escola;
 
+	@JsonIgnore
+	@OneToOne
+	@JoinColumn(name = "fk_aluno")
+	private Aluno aluno;
 	
-	
-	
-	public ControleAluno() {
-
-	}
-
-	public ControleAluno(ZonedDateTime horario, TipoHorario tipoHorario,Escola escola) {
-		super();
-		this.horario = horario;
-		this.tipoHorario = tipoHorario;
-
-		this.escola = escola;
-	}
-	
-
-
-
-
 	public Escola getEscola() {
 		return escola;
 	}
@@ -86,8 +74,30 @@ public class ControleAluno implements Serializable {
 		this.tipoHorario = tipoHorario;
 	}
 
-	@OneToOne
-	@JoinColumn(name = "fk_escola")
-	private Escola escola;
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
+	
+		
+	public ControleAluno() {
+
+	}
+
+	public ControleAluno( TipoHorario tipoHorario, Aluno aluno) {
+
+		this.horario = Utility.getDate("Brazil/East");
+		this.tipoHorario = tipoHorario;
+		this.escola = aluno.getEscola();
+		this.aluno = aluno;
+	}
+	
+
+	
+
+
 	
 }

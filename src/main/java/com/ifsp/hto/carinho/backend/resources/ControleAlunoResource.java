@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ifsp.hto.carinho.backend.dto.ControleAlunoDTO;
 import com.ifsp.hto.carinho.backend.model.Aluno;
+import com.ifsp.hto.carinho.backend.model.AlunoControleAluno;
 import com.ifsp.hto.carinho.backend.model.ControleAluno;
 import com.ifsp.hto.carinho.backend.model.TipoHorario;
+import com.ifsp.hto.carinho.backend.repository.AlunoControleAlunoRepository;
 import com.ifsp.hto.carinho.backend.repository.AlunoRepository;
 import com.ifsp.hto.carinho.backend.repository.ControleAlunoRepository;
 import com.ifsp.hto.carinho.backend.repository.EscolaRepository;
@@ -31,43 +33,50 @@ public class ControleAlunoResource {
 	@Autowired(required = true)
 	EscolaRepository escolaRepository;
 	
-	
 	@Autowired(required = true)
 	AlunoRepository alunoRepository;
 
 	@Autowired(required = true)
 	ControleAlunoRepository controleAlunoRepository;
+	
+	@Autowired(required = true)
+	AlunoControleAlunoRepository alunoControleAlunoRepository;
+	
+
+
 
 
 	@PostMapping("/controle")
-	public ControleAluno lista2(TipoHorario tipoHorario,long idAluno) {	
+	public void  salvarFrequencia(TipoHorario tipoHorario,long idAluno,long idEscola) {			
+		Aluno aluno = alunoRepository.findByidAluno(idAluno, idEscola);
 		
 		
-		System.out.println("---------Controle Aluno--------");
-		System.out.println("Tipo horario: "+tipoHorario);
-		System.out.println("id aluno    : "+idAluno);
-		
-		Aluno al = alunoRepository.findById(idAluno);
-		
-		ControleAluno controleAluno = new ControleAluno(
-				Utility.getDate("Brazil/East"),tipoHorario,al.getEscola()
-				);
+		ControleAluno controleAluno;
 		
 		
-		System.out.println("Fk_escola:");
-	//	System.out.println(controleAluno.getAluno().getEscola().getId());
+		if (tipoHorario.equals("ENTRADA") || tipoHorario.equals("SAIDA")) {
+			 controleAluno = new ControleAluno(tipoHorario,aluno);		
+		}else {
+			 controleAluno = new ControleAluno(TipoHorario.ENTRADA,aluno);	
+		}	
 		
 		
 		
-		return controleAlunoRepository.save(controleAluno);
 		
-		}
+		
+		
+		
+		controleAlunoRepository.save(controleAluno);
+		AlunoControleAluno alunoControleAluno = new AlunoControleAluno(aluno, controleAluno, aluno.getEscola());		
+		alunoControleAlunoRepository.save(alunoControleAluno);	
+		
+	}
 	
 	
 
 	@GetMapping("/controle")
 	public ResponseEntity<List<ControleAluno>> listaHorario() {
-
+		
 		return new ResponseEntity<>(controleAlunoRepository.findAll(), HttpStatus.OK);
 
 	}
