@@ -137,6 +137,7 @@ public class AlunoResource {
 		alunoControleAluno = alunoControleAlunoRepository.findByidControleAluno(idAluno, idEscola);
 		
 		
+		
 		return alunoControleAluno;
 	}
 	
@@ -179,8 +180,7 @@ public class AlunoResource {
 		ArrayList<AlunoControleAlunoWrapper> listACW = new ArrayList();
 		for (Aluno newAluno : alunoRepository.findAlunoByEscola(idEscola)) {		
 			long cont = controleAlunoRepository.cont(newAluno.getId(),idEscola);		 
-			System.out.println(controleAlunoRepository.resultado2(cont,newAluno.getId(),idEscola));
-		//AlunoControleAlunoWrapper alunoControleAlunoWrapper = new AlunoControleAlunoWrapper(newAluno,ca);
+
 		}
 		
 	return listACW;
@@ -226,15 +226,32 @@ public class AlunoResource {
 	
 	@DeleteMapping("/aluno/{id}")
 	public String deletaAluno(@PathVariable(value = "id") long id) {
-		System.out.println("ID recebido          : "+id);
-		ArrayList<Long> listIdAluno = alunoResponsavelRepository.getIdRelacionamentoAluno(id);
+
+
+				ArrayList<Long> listIdAluno = alunoResponsavelRepository.getIdRelacionamentoAluno(id);
 		alunoResponsavelRepository.flush();		
 		for(long elem : listIdAluno){			
 			alunoResponsavelRepository.deleteById(elem);
-			System.out.println("ID aluno_responsavel: "+ elem +" deletado ");				
+				
 		}
 		
+//	AlunoControleAluno alunoControleAluno = alunoControleAlunoRepository.findByidControleAluno(aluno.getId(),aluno.getEscola().getId());
+//		alunoControleAlunoRepository.delete(alunoControleAluno);
+		
+		List<AlunoControleAluno> listAlunoControleAluno = alunoControleAlunoRepository.getAlunoControleAlunoByIdList(id);
+		for(AlunoControleAluno thisAlunoControleAluno : listAlunoControleAluno){		
+			
+
+			alunoControleAlunoRepository.delete(thisAlunoControleAluno);
+							
+			
+			
+			
+			
+		}					
+		
 		alunoRepository.deleteById(id);	
+			
 	return "deu certo";
 	}
 	
@@ -252,10 +269,7 @@ public class AlunoResource {
 
 	@PutMapping("/aluno")
 	public String salvaAlunos(int id_aluno,String nome, int idade, MultipartFile foto,int carteiraIdentidade, TipoGenero genero, int id_turma) throws IOException {
-		//Turma turma2 = new Turma(numeroTurma, professorResponsavel);
 		
-		//Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero,turma);
-		//System.out.println(aluno);
 
 		try { 
 			

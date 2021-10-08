@@ -1,6 +1,7 @@
 package com.ifsp.hto.carinho.backend.model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +28,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -53,7 +55,8 @@ public class Aluno implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyy", shape = Shape.STRING)
 	private Date dataNascimento;
 
-	private int carteiraIdentidade;
+	
+	private long carteiraIdentidade;
 
 	@ManyToOne
 	@JoinColumn(name = "fk_escola")
@@ -131,13 +134,13 @@ public class Aluno implements Serializable {
 
 
 
-	public int getCarteiraIdentidade() {
+	public long getCarteiraIdentidade() {
 		return carteiraIdentidade;
 	}
 
 
 
-	public void setCarteiraIdentidade(int carteiraIdentidade) {
+	public void setCarteiraIdentidade(long carteiraIdentidade) {
 		this.carteiraIdentidade = carteiraIdentidade;
 	}
 

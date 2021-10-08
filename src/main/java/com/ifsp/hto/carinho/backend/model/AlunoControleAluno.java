@@ -33,6 +33,20 @@ public class AlunoControleAluno implements Serializable {
 	@JoinColumn(name = "fk_escola")
 	private Escola escola ;
 
+	
+	
+	
+	
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
 	public Aluno getAluno() {
 		return aluno;
 	}

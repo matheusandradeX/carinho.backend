@@ -17,7 +17,8 @@ public interface AlunoControleAlunoRepository extends JpaRepository<AlunoControl
 	
 	
 	
-	
+	@Query(value ="select * from aluno_controle_aluno where aluno_id =:id",nativeQuery = true)
+	List<AlunoControleAluno> getAlunoControleAlunoByIdList(long id);
 	
 	
 

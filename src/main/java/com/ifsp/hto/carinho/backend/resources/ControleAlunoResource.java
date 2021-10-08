@@ -49,22 +49,20 @@ public class ControleAlunoResource {
 	@PostMapping("/controle")
 	public void  salvarFrequencia(TipoHorario tipoHorario,long idAluno,long idEscola) {			
 		Aluno aluno = alunoRepository.findByidAluno(idAluno, idEscola);
-		
+			
+		System.out.println(idAluno);
+		System.out.println(idEscola);
+		System.out.println(tipoHorario);
 		
 		ControleAluno controleAluno;
+			
 		
-		
-		if (tipoHorario.equals("ENTRADA") || tipoHorario.equals("SAIDA")) {
+		if (tipoHorario.equals(tipoHorario.ENTRADA) || tipoHorario.equals(tipoHorario.SAIDA)) {
 			 controleAluno = new ControleAluno(tipoHorario,aluno);		
-		}else {
-			 controleAluno = new ControleAluno(TipoHorario.ENTRADA,aluno);	
+	}
+	else {
+			controleAluno = new ControleAluno(tipoHorario.ENTRADA,aluno);	
 		}	
-		
-		
-		
-		
-		
-		
 		
 		controleAlunoRepository.save(controleAluno);
 		AlunoControleAluno alunoControleAluno = new AlunoControleAluno(aluno, controleAluno, aluno.getEscola());		
