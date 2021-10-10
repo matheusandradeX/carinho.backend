@@ -21,12 +21,9 @@ public interface ControleAlunoRepository extends JpaRepository<ControleAluno,Lon
 	@Query(value = "SELECT * FROM controle_aluno", nativeQuery = true)
 	List<ControleAlunoDTO> save2();
 	
-	
 	@Query(value = "SELECT * FROM controle_aluno where fk_escola =:idEscola", nativeQuery = true)
 	List<ControleAluno> myFindAll(@Param("idEscola") long idEscola);
 
-	
-	
 	@Query(value = "SELECT COUNT(tipo_horario) -1  FROM controle_aluno where fk_aluno = :id and fk_escola =:idEscola", nativeQuery = true)
 	long cont(@Param("id")long id,@Param("idEscola") long idEscola);
 	
@@ -36,21 +33,7 @@ public interface ControleAlunoRepository extends JpaRepository<ControleAluno,Lon
 	@Query(value = "SELECT * FROM controle_aluno where fk_aluno =:id2 and fk_escola =:idEscola ORDER BY fk_aluno DESC LIMIT :numero ,1", nativeQuery = true)
 	ControleAluno resultado2(@Param("numero") long numero,@Param("id2") long id2,@Param("idEscola") long idEscola);
 	
-	
-	//SELECT * FROM controle_aluno where fk_aluno =5 and fk_escola = 14 ORDER BY fk_aluno DESC LIMIT 0 ,1
-
 	@Query(value = "SELECT * FROM `controle_aluno` WHERE fk_aluno = :id", nativeQuery = true)	
 	ArrayList<ControleAluno> buscaFK(@Param("id")long id);
 	
-
-	
-
-	
-	
-	
-	
-	
-	
-	
-
 }

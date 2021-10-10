@@ -16,10 +16,6 @@ public interface FrequenciaDTO {
 	@JsonFormat(pattern = "dd/MM/yyyy ", shape = Shape.STRING)
 	public Date getdataRegistro();
 	
-	
 	public TipoHorario getTipo_Horario();
-	
-	
-	
 	
 }

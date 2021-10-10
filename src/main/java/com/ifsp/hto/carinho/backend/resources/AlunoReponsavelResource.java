@@ -34,14 +34,10 @@ public class AlunoReponsavelResource {
 
 	@Autowired(required = true)
 	AlunoResponsavelRepository alunoresponsavel;
-	
-	
 	@Autowired(required = true)
 	ResponsavelRepository responsavelRepository;
 	@Autowired(required = true)
 	AlunoRepository alunoRepository;
-	
-	
 	
 	@GetMapping("/alunoResponsavel")
 	public List<AlunoResponsavel> teste (){
@@ -51,9 +47,7 @@ public class AlunoReponsavelResource {
 	@PostMapping("/alunoresponsavel") 
 	public AlunoResponsavel salvar(int alunoId, int responsavelId) {
 			
-			System.out.println(alunoId);
-			System.out.println(responsavelId);
-			
+						
 			Aluno a =  alunoRepository.findById(alunoId);
 			Responsavel r = responsavelRepository.findById(responsavelId);		
 	
@@ -62,13 +56,7 @@ public class AlunoReponsavelResource {
 			return alunoresponsavel.save(ar);
 		}
 	
-	@PostMapping("/teste") 
-	public void teste(int id) {
-		System.out.println(id);
-		return;
-	}
 
-	
 	@GetMapping("/testeAmazon")
 	public String  testeAmazon(){
 		

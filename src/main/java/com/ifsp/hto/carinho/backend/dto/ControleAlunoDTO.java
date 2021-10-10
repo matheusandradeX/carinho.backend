@@ -10,7 +10,6 @@ public interface ControleAlunoDTO {
 	
 	public int getId();
 	
-	
 	public String getfk_aluno();
 	
 	public Date getHorario();

@@ -36,9 +36,6 @@ public class LoginResource {
 		return loginRepository.professoresCadastrados();
 	}
 	
-	
-	
-	
 	@PostMapping("/login")
 	public Login autenticar(String nome, String senha,long idEscola) throws NoSuchAlgorithmException {
 		

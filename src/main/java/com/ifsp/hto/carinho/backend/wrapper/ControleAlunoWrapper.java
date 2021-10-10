@@ -14,10 +14,6 @@ public class ControleAlunoWrapper {
 	
 	private Escola escola;
 	
-	
-	
-
-
 	public Escola getEscola() {
 		return escola;
 	}

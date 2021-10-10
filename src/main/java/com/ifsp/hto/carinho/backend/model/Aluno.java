@@ -72,85 +72,57 @@ public class Aluno implements Serializable {
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] foto;
 	
-
-
 	public long getId() {
 		return id;
 	}
-
-
 
 	public void setId(long id) {
 		this.id = id;
 	}
 
-
-
 	public String getNome() {
 		return nome;
 	}
-
-
 
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-
-
 	public int getIdade() {
 		return idade;
 	}
-
-
 
 	public void setIdade(int idade) {
 		this.idade = idade;
 	}
 
-
-
 	public TipoGenero getGenero() {
 		return genero;
 	}
-
-
 
 	public void setGenero(TipoGenero genero) {
 		this.genero = genero;
 	}
 
-
-
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
-
-
 
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
-
-
 	public long getCarteiraIdentidade() {
 		return carteiraIdentidade;
 	}
-
-
 
 	public void setCarteiraIdentidade(long carteiraIdentidade) {
 		this.carteiraIdentidade = carteiraIdentidade;
 	}
 
-
-
 	public Escola getEscola() {
 		return escola;
 	}
-
-
 
 	public void setEscola(Escola escola) {
 		this.escola = escola;

@@ -19,15 +19,11 @@ import com.ifsp.hto.carinho.backend.repository.EscolaRepository;
 @CrossOrigin(origins = "*")
 public class EscolaResource {
 
-	
 	@Autowired(required = true)
 	EscolaRepository escolaRepository;
 	
-	
-	
 	@GetMapping("/escolas")
 	public List<Escola> listaEscolas (){
-		
 		
 		return escolaRepository.findAll();
 		
@@ -38,8 +34,5 @@ public class EscolaResource {
 		Escola escola = new Escola(nome);
 		return escolaRepository.save(escola);
 	}
-	
-	
-	
 	
 }

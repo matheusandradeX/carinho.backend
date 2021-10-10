@@ -28,19 +28,15 @@ public class ProfessorResource {
 	@GetMapping("/professores")
 	public List<Professor> teste (){
 		
-		return professorRepository.findAll();
+	return professorRepository.findAll();
 	}
 	@PostMapping("/professor") 
 	public Professor salva(String nome, String turma )  {
 		
-			Professor professor = new Professor(nome,turma);
-		
-		
+	Professor professor = new Professor(nome,turma);
+			
 	return professorRepository.save(professor);
 	
 	}
-	
-	
-	
 	
 }

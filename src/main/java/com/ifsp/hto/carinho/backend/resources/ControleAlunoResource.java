@@ -42,17 +42,10 @@ public class ControleAlunoResource {
 	@Autowired(required = true)
 	AlunoControleAlunoRepository alunoControleAlunoRepository;
 	
-
-
-
-
 	@PostMapping("/controle")
 	public void  salvarFrequencia(TipoHorario tipoHorario,long idAluno,long idEscola) {			
 		Aluno aluno = alunoRepository.findByidAluno(idAluno, idEscola);
 			
-		System.out.println(idAluno);
-		System.out.println(idEscola);
-		System.out.println(tipoHorario);
 		
 		ControleAluno controleAluno;
 			
@@ -81,21 +74,17 @@ public class ControleAlunoResource {
 	
 	@GetMapping("/ultimoRegistro/aluno/{idAluno}/escola/{idEscola}")
 	public ControleAlunoDTO ultimoRegistro(@PathVariable(value = "idAluno")long idAluno,@PathVariable(value = "idEscola")long idEscola ) {
-		System.out.println("-------------------------");
-		System.out.println("id aluno : "+idAluno);
-		System.out.println("id escola: "+idEscola);
+		
 		
 		long cont = controleAlunoRepository.cont(idAluno,idEscola);
-		
-		System.out.println("O VALOR DE CONT É: "+cont);
+	
 		return controleAlunoRepository.resultado(cont,idAluno,idEscola);
-		
 	}
 	
 	@GetMapping("/ultimoResgistro/{idEscola}")
 	public List<ControleAluno> ultimoRegistros(@PathVariable(value = "idEscola")long idEscola) {
 		
-		System.out.println(controleAlunoRepository.myFindAll(idEscola));
+	
 		
 		 List<ControleAluno> listacontroleAluno = controleAlunoRepository.myFindAll(idEscola);
 	 
@@ -110,10 +99,4 @@ public class ControleAlunoResource {
 		return newlistacontroleAluno;
 	}
 	
-	
-	
-	
-	
-	
-
 }

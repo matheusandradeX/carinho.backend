@@ -38,8 +38,7 @@ public class ResponsavelResource {
 	
 	@GetMapping("responsavel/{id}")
 	public List<ResponsavelDTO> responsavel(@PathVariable(value = "id") int id) {
-		
-		
+			
 		return responsavelRepository.responsavel(id);
 	}
 	
@@ -50,7 +49,6 @@ public class ResponsavelResource {
 	}
 		@PostMapping("/responsavel") 
 	public Responsavel salvaResponsavel( String nomeResp, Integer carteiraIdentidade, int telefone, TipoResponsavel tipoResponsavel,MultipartFile foto) throws IOException {
-		
 			
 		Responsavel responsavel = new Responsavel(nomeResp, carteiraIdentidade, tipoResponsavel, telefone,foto.getBytes());
 		
