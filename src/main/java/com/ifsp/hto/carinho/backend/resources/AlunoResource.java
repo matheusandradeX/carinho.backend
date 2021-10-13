@@ -79,7 +79,7 @@ public class AlunoResource {
 		return alunoRepository.listaFrequencia(idTurma,idEscola);
 	}
 	
-	@GetMapping("testeAluno/{idAluno}/escola/{idEscola}")
+	@GetMapping("aluno/{idAluno}/escola/{idEscola}")
 	public AlunoControleAluno listaAlunoUnico(@PathVariable(value = "idAluno") long idAluno,@PathVariable(value = "idEscola") long idEscola) {
 
 		AlunoControleAluno alunoControleAluno ;

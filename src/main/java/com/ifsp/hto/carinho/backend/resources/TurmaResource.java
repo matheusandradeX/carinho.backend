@@ -32,10 +32,10 @@ public class TurmaResource {
 	@Autowired(required = true)
 	AlunoRepository alunoRepository;
 	
-	@GetMapping("/turmas")
-	public List<Turma> lista (){
+	@GetMapping("/turmas/escola/{idEscola}")
+	public List<Turma> lista (@PathVariable(value = "idEscola") long idEscola){
 		
-		return turmaRepository.findAll();
+		return turmaRepository.listaTurmas(idEscola);
 	}
 	
 	@PostMapping("/cadastrarTurma")
