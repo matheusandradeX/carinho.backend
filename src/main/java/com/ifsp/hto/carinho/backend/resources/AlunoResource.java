@@ -142,19 +142,19 @@ public class AlunoResource {
 	}
 	
 	
-	@DeleteMapping("/aluno/{id}")
-	public String deletaAluno(@PathVariable(value = "id") long id) {
-		ArrayList<Long> listIdAluno = alunoResponsavelRepository.getIdRelacionamentoAluno(id);
+	@DeleteMapping("/aluno/{idAluno}/escola/{idEscola}")
+	public String deletaAluno(@PathVariable(value = "idAluno") long idAluno,@PathVariable(value = "idEscola") long idEscola) {
+		ArrayList<Long> listIdAluno = alunoResponsavelRepository.getIdRelacionamentoAluno(idAluno,idEscola);
 		alunoResponsavelRepository.flush();		
 		for(long elem : listIdAluno){			
 			alunoResponsavelRepository.deleteById(elem);	
 		}
 		
-		List<AlunoControleAluno> listAlunoControleAluno = alunoControleAlunoRepository.getAlunoControleAlunoByIdList(id);
+		List<AlunoControleAluno> listAlunoControleAluno = alunoControleAlunoRepository.getAlunoControleAlunoByIdList(idAluno);
 		for(AlunoControleAluno thisAlunoControleAluno : listAlunoControleAluno){		
 			alunoControleAlunoRepository.delete(thisAlunoControleAluno);	
 		}					
-		alunoRepository.deleteById(id);		
+		alunoRepository.deleteById(idAluno);		
 		return "deu certo";
 	}
 	

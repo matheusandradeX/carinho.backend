@@ -46,14 +46,11 @@ public class AlunoReponsavelResource {
 	}
 	@PostMapping("/alunoresponsavel") 
 	public AlunoResponsavel salvar(int alunoId, int responsavelId) {
-			
 						
-			Aluno a =  alunoRepository.findById(alunoId);
-			Responsavel r = responsavelRepository.findById(responsavelId);		
-	
-			AlunoResponsavel ar = new AlunoResponsavel(a,r);
-			
-			return alunoresponsavel.save(ar);
+			Aluno aluno =  alunoRepository.findById(alunoId);
+			Responsavel responsavel = responsavelRepository.findById(responsavelId);		
+			AlunoResponsavel alunoResponsavel = new AlunoResponsavel(aluno.getEscola(),aluno, responsavel);
+			return alunoresponsavel.save(alunoResponsavel);
 		}
 	
 

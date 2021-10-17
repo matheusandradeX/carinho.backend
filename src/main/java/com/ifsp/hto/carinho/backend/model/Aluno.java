@@ -188,21 +188,6 @@ public class Aluno implements Serializable {
 	
 	
 
-/*
-
-	public Aluno(String nome, int idade, TipoGenero genero, Date dataNascimento, int carteiraIdentidade, Escola escola,
-			List<ControleAluno> l_ControleAluno, Turma turma, byte[] foto) {
-		this.nome = nome;
-		this.idade = idade;
-		this.genero = genero;
-		this.dataNascimento = dataNascimento;
-		this.carteiraIdentidade = carteiraIdentidade;
-		this.escola = escola;
-		this.l_ControleAluno = l_ControleAluno;
-		this.turma = turma;
-		this.foto = foto;
-	}
-*/
 
 
 

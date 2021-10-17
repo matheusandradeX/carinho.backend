@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 public class AlunoResponsavel implements Serializable {
 	
+
 	@OneToOne
 	@JoinColumn(name = "fk_escola")
 	private Escola escola;
@@ -34,30 +35,28 @@ public class AlunoResponsavel implements Serializable {
 	 @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
 	private Aluno aluno;
 	
-	//@Column(name="nome",insertable = false, updatable = false)
-	//int alunoId;
-	
 	@ManyToOne()
 	@JoinColumn(name = "nome_resp", referencedColumnName = "id")
 	 @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
 	private Responsavel responsavel;
-	
-	//@Column(name ="nome_resp",insertable = false, updatable = false)
-	//int responsavelId;
 
-	//public AlunoResponsavel(int alunoId, int responsavelId) {
-		
-	//	this.alunoId = alunoId;
-	//	this.responsavelId = responsavelId;
-	//}
-
-	public long getId() {
-		return id;
+	public AlunoResponsavel(Escola escola, Aluno aluno, Responsavel responsavel) {
+		this.escola = escola;
+		this.aluno = aluno;
+		this.responsavel = responsavel;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-}
+	public AlunoResponsavel() {
+		
+	}
+
+	public Escola getEscola() {
+		return escola;
+	}
+
+	public void setEscola(Escola escola) {
+		this.escola = escola;
+	}
 
 	public Aluno getAluno() {
 		return aluno;
@@ -74,13 +73,7 @@ public class AlunoResponsavel implements Serializable {
 	public void setResponsavel(Responsavel responsavel) {
 		this.responsavel = responsavel;
 	}
-
-	public AlunoResponsavel(Aluno a, Responsavel r) {
-		this.aluno = a;
-		this.responsavel = r;
-	}
-
-
+	
 	
 	
 	

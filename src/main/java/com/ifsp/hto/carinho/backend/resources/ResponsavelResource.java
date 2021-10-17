@@ -1,6 +1,7 @@
 package com.ifsp.hto.carinho.backend.resources;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -55,28 +56,18 @@ public class ResponsavelResource {
 	return responsavelRepository.save(responsavel);
 	
 	}
-		@DeleteMapping("/responsavel/{id}/{id2}")
-		public Responsavel deletar(@PathVariable(value = "id") long id,@PathVariable(value = "id2") long id2) {
+		@DeleteMapping("/responsavel/{idResponsavel}/idEscola/{idEscola}")
+		public String deletar(@PathVariable(value = "idResponsavel") long idResponsavel,@PathVariable(value = "idEscola") long idEscola) {
 			
-			System.out.println(id);
-			System.out.println(id2);
-		
-			AlunoResponsavel teste = alunoResponsavelRepository.selecionarResponsavel(id, id2);
+			ArrayList<Long> listIdResponsavel = alunoResponsavelRepository.getIdRelacionamentoResponsavel(idResponsavel,idEscola);
+			alunoResponsavelRepository.flush();		
+			for(long elem : listIdResponsavel){			
+				alunoResponsavelRepository.deleteById(elem);	
+			}
 			
-			System.out.println(teste.getId());
-				
-			alunoResponsavelRepository.deleteById(teste.getId());
+			responsavelRepository.deleteById(idResponsavel);
 			
-			
-		//	List<Long> ids = responsavelRepository.selecionarResponsavel(id);
-		
-
-		//	System.out.println(a);
-		
-			//SELECT `id` FROM `aluno_responsavel` WHERE `nome_resp`=:id
-			
-			//responsavelRepository.deleteById(id);
-			return null;
+			return "deu certo";
 		}
 		
 	
