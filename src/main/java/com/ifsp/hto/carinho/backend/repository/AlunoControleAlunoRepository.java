@@ -20,10 +20,16 @@ public interface AlunoControleAlunoRepository extends JpaRepository<AlunoControl
 	@Query(value ="select * from aluno_controle_aluno where aluno_id =:id",nativeQuery = true)
 	List<AlunoControleAluno> getAlunoControleAlunoByIdList(long id);
 	
-	
 
+	
 	@Query(value ="SELECT DISTINCT aluno_id FROM aluno_controle_aluno",nativeQuery = true)
 	List<Long> getAllId();
+	
+	
+	@Query(value ="SELECT DISTINCT aluno_id FROM aluno_controle_aluno INNER JOIN aluno on aluno_id=aluno.id where aluno.nome LIKE :nomeA% and aluno.fk_escola = :idEscola ",nativeQuery = true)
+	List<Long> findByNome(@Param("nomeA") String nome,@Param("idEscola") long idEscola);
+
+	
 	
 	@Query(value ="SELECT * FROM `aluno_controle_aluno` WHERE aluno_id =:id order by controle_aluno_id DESC LIMIT 1",nativeQuery = true)
 	AlunoControleAluno eee(long id);

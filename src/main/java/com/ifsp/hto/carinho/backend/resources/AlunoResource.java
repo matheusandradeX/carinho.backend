@@ -107,8 +107,23 @@ public class AlunoResource {
 	}
 	
 	@GetMapping("alunos/{nome}/escola/{idEscola}")
-	public List<Aluno> listaNome(@PathVariable(value = "nome") String nome,@PathVariable(value = "idEscola") long idEscola) {
-		return alunoRepository.findByNome(nome,idEscola);
+	public List<AlunoControleAluno> listaNome(@PathVariable(value = "nome") String nome,@PathVariable(value = "idEscola") long idEscola) {
+		
+		List<AlunoControleAluno> listaAlunoControleAluno = new ArrayList<AlunoControleAluno>();
+		
+		List<Long> listAllId = alunoControleAlunoRepository.findByNome(nome, idEscola);	
+		
+		alunoControleAlunoRepository.findAllById(listAllId);
+	
+		for  (long idd: listAllId) {			
+		
+			listaAlunoControleAluno.add(alunoControleAlunoRepository.eee(idd));
+		}
+		
+		return listaAlunoControleAluno;
+		
+		
+		
 
 	}
 

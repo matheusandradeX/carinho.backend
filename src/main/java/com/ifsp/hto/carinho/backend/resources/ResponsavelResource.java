@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,10 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ifsp.hto.carinho.backend.dto.ResponsavelDTO;
 import com.ifsp.hto.carinho.backend.model.Aluno;
 import com.ifsp.hto.carinho.backend.model.AlunoResponsavel;
+import com.ifsp.hto.carinho.backend.model.Escola;
 import com.ifsp.hto.carinho.backend.model.Responsavel;
 import com.ifsp.hto.carinho.backend.model.TipoGenero;
 import com.ifsp.hto.carinho.backend.model.TipoResponsavel;
 import com.ifsp.hto.carinho.backend.repository.AlunoResponsavelRepository;
+import com.ifsp.hto.carinho.backend.repository.EscolaRepository;
 import com.ifsp.hto.carinho.backend.repository.ResponsavelRepository;
 
 @RestController
@@ -36,6 +39,8 @@ public class ResponsavelResource {
 	ResponsavelRepository responsavelRepository;
 	@Autowired(required = true)
 	AlunoResponsavelRepository alunoResponsavelRepository;
+	@Autowired(required = true)
+	EscolaRepository escolaRepository;
 	
 	@GetMapping("responsavel/{id}")
 	public List<ResponsavelDTO> responsavel(@PathVariable(value = "id") int id) {
@@ -49,9 +54,11 @@ public class ResponsavelResource {
 		return responsavelRepository.findAll();
 	}
 		@PostMapping("/responsavel") 
-	public Responsavel salvaResponsavel( String nomeResp, Integer carteiraIdentidade, int telefone, TipoResponsavel tipoResponsavel,MultipartFile foto) throws IOException {
+	public Responsavel salvaResponsavel( String nomeResp, long carteiraIdentidade, long telefone, TipoResponsavel tipoResponsavel,MultipartFile foto,int idEscola) throws IOException {
+	
+			Escola escola = escolaRepository.findById(idEscola);
 			
-		Responsavel responsavel = new Responsavel(nomeResp, carteiraIdentidade, tipoResponsavel, telefone,foto.getBytes());
+		Responsavel responsavel = new Responsavel(nomeResp, carteiraIdentidade, tipoResponsavel, telefone,foto.getBytes(),escola);
 		
 	return responsavelRepository.save(responsavel);
 	
@@ -70,7 +77,30 @@ public class ResponsavelResource {
 			return "deu certo";
 		}
 		
-	
+	@PutMapping("/responsavel")
+	public String atualizar(String nomeResp, long carteiraIdentidade, long telefone, TipoResponsavel tipoResponsavel,MultipartFile foto,int idEscola,int idResponsavel) throws IOException {
+		System.out.println(idResponsavel);
+		System.out.println(nomeResp);
+		System.out.println(carteiraIdentidade);
+		System.out.println(telefone);
+		System.out.println(tipoResponsavel);
+		System.out.println(idEscola);
+
+
+		Responsavel responsavel = responsavelRepository.findbyIdResponsavel(idResponsavel, idEscola);
+		
+		responsavel.setCarteiraIdentidade(carteiraIdentidade);
+		responsavel.setFoto(foto.getBytes());
+		responsavel.setNomeResp(nomeResp);
+		responsavel.setTelefone(telefone);
+		responsavel.setTipoResponsavel(tipoResponsavel);
+		
+		responsavelRepository.save(responsavel);
+
+		
+		
+		return "deu certo";
+	}
 		
 		
 		

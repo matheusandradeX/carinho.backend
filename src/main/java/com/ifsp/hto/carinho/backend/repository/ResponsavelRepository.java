@@ -22,4 +22,6 @@ public interface ResponsavelRepository extends JpaRepository<Responsavel, Long> 
 	@Query(value = "SELECT `id` FROM `aluno_responsavel` WHERE `nome_resp`=:id",nativeQuery = true)
 	List<Integer>  selecionarResponsavel(@Param("id") long id);
 	
+	@Query(value = "SELECT * FROM `responsavel` WHERE id =:idResponsavel and fk_escola =:idEscola",nativeQuery = true)
+	Responsavel findbyIdResponsavel (@Param("idResponsavel") long idResponsavel,@Param("idEscola") long idEscola);
 }

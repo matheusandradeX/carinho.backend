@@ -23,20 +23,15 @@ public class Responsavel implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
 	@OneToOne
 	@JoinColumn(name = "fk_escola")
 	private Escola escola;
-	
-	
 	private String nomeResp;
 	private Date dataNascimento;
-	private Integer carteiraIdentidade;
+	private long carteiraIdentidade;
 	@Enumerated(value = EnumType.STRING)
 	private TipoResponsavel tipoResponsavel;
-	private int telefone;
-	
-	
+	private long telefone;
 	
 	public TipoResponsavel getTipoResponsavel() {
 		return tipoResponsavel;
@@ -44,10 +39,10 @@ public class Responsavel implements Serializable{
 	public void setTipoResponsavel(TipoResponsavel tipoResponsavel) {
 		this.tipoResponsavel = tipoResponsavel;
 	}
-	public int getTelefone() {
+	public long getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(int telefone) {
+	public void setTelefone(long telefone) {
 		this.telefone = telefone;
 	}
 
@@ -62,7 +57,7 @@ public class Responsavel implements Serializable{
 	public void setFoto(byte[] foto) {
 		this.foto = foto;
 	}
-	public Responsavel(String nomeResp, Date dataNascimento, int carteiraIdentidade, int telefone) {
+	public Responsavel(String nomeResp, Date dataNascimento, long carteiraIdentidade, long telefone) {
 		
 		this.nomeResp = nomeResp;
 		this.dataNascimento = dataNascimento;
@@ -72,17 +67,15 @@ public class Responsavel implements Serializable{
 	
 	
 	
-	public Responsavel(String nomeResp, Integer carteiraIdentidade, TipoResponsavel tipoResponsavel, int telefone,
-			byte[] foto) {
+	public Responsavel(String nomeResp, long carteiraIdentidade, TipoResponsavel tipoResponsavel, long telefone,byte[] foto, Escola escola) {
 		this.nomeResp = nomeResp;
 		this.carteiraIdentidade = carteiraIdentidade;
 		this.tipoResponsavel = tipoResponsavel;
 		this.telefone = telefone;
 		this.foto = foto;
-	
+		this.escola = escola;
 	}
-	public Responsavel(String nomeResp, Date dataNascimento, int carteiraIdentidade, TipoResponsavel tipoResponsavel,
-			int telefone) {
+	public Responsavel(String nomeResp, Date dataNascimento, long carteiraIdentidade, TipoResponsavel tipoResponsavel,long telefone) {
 		this.nomeResp = nomeResp;
 		this.dataNascimento = dataNascimento;
 		this.carteiraIdentidade = carteiraIdentidade;
@@ -118,11 +111,11 @@ public class Responsavel implements Serializable{
 		this.dataNascimento = dataNascimento;
 	}
 
-	public int getCarteiraIdentidade() {
+	public long getCarteiraIdentidade() {
 		return carteiraIdentidade;
 	}
 
-	public void setCarteiraIdentidade(int carteiraIdentidade) {
+	public void setCarteiraIdentidade(long carteiraIdentidade) {
 		this.carteiraIdentidade = carteiraIdentidade;
 	}
 
