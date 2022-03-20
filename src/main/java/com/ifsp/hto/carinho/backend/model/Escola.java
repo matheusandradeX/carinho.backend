@@ -10,7 +10,9 @@ import javax.persistence.Id;
 
 import org.hibernate.envers.Audited;
 
+
 @Entity
+@Audited
 public class Escola implements Serializable {
 	/**
 	 * 

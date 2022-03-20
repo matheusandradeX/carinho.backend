@@ -78,28 +78,17 @@ public class ResponsavelResource {
 		}
 		
 	@PutMapping("/responsavel")
-	public String atualizar(String nomeResp, long carteiraIdentidade, long telefone, TipoResponsavel tipoResponsavel,MultipartFile foto,int idEscola,int idResponsavel) throws IOException {
-		System.out.println(idResponsavel);
-		System.out.println(nomeResp);
-		System.out.println(carteiraIdentidade);
-		System.out.println(telefone);
-		System.out.println(tipoResponsavel);
-		System.out.println(idEscola);
-
+	public Responsavel atualizar(String nomeResp, long carteiraIdentidade, 
+	long telefone, TipoResponsavel tipoResponsavel,MultipartFile foto,int idEscola,int idResponsavel) throws IOException {
 
 		Responsavel responsavel = responsavelRepository.findbyIdResponsavel(idResponsavel, idEscola);
-		
 		responsavel.setCarteiraIdentidade(carteiraIdentidade);
 		responsavel.setFoto(foto.getBytes());
 		responsavel.setNomeResp(nomeResp);
 		responsavel.setTelefone(telefone);
 		responsavel.setTipoResponsavel(tipoResponsavel);
 		
-		responsavelRepository.save(responsavel);
-
-		
-		
-		return "deu certo";
+		return responsavelRepository.save(responsavel);
 	}
 		
 		

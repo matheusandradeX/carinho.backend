@@ -19,6 +19,7 @@ import javax.persistence.FetchType;
 
 
 @Entity
+@Audited
 public class Turma implements Serializable{
 
 

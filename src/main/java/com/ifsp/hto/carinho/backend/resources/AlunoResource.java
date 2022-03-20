@@ -58,24 +58,18 @@ public class AlunoResource {
 	AlunoRepository alunoRepository;
 	@Autowired(required = true)
 	TurmaRepository turmaRepository;
-	
 	@Autowired(required = true)
 	ControleAlunoRepository controleAlunoRepository;
-	
 	@Autowired(required = true)
 	AlunoControleAlunoRepository alunoControleAlunoRepository;
-	
 	@Autowired(required = true)
 	AlunoResponsavelRepository alunoResponsavelRepository;
-	
 	@Autowired(required = true)
 	EscolaRepository escolaRepository;
 	
-
-	
 	@GetMapping("frequencia/{idTurma}/{idEscola}")
-	public List<FrequenciaDTO> listaFrequencia (@PathVariable(value = "idTurma") long idTurma,@PathVariable(value = "idEscola") long idEscola){
-		
+	public List<FrequenciaDTO> listaFrequencia (@PathVariable(value = "idTurma") 
+	long idTurma,@PathVariable(value = "idEscola") long idEscola){
 		return alunoRepository.listaFrequencia(idTurma,idEscola);
 	}
 	
@@ -133,19 +127,14 @@ public class AlunoResource {
 	}
 
 	@PostMapping("/aluno")
-	public void salvaAluno( String nome, int idade, MultipartFile foto ,int carteiraIdentidade, TipoGenero genero, long turma, long escola) throws IOException {
-				
+	public void salvaAluno( String nome, int idade, MultipartFile foto ,int carteiraIdentidade, TipoGenero genero, long turma, long escola) throws IOException {	
 		Turma t = turmaRepository.findById(turma);
 		turmaRepository.flush();
 		Escola e = escolaRepository.findById(escola);
-	
 		Aluno aluno = new  Aluno(nome, idade, foto.getBytes(), carteiraIdentidade, genero,t,e);
 		 alunoRepository.save(aluno);	
-		 
 		 ControleAluno controleAluno = new ControleAluno( TipoHorario.NOVO, aluno);
-		
 		AlunoControleAluno alunoControleAluno = new AlunoControleAluno(aluno, controleAluno, aluno.getEscola());
-		
 		alunoControleAlunoRepository.save(alunoControleAluno);
 	}
 	
@@ -164,7 +153,6 @@ public class AlunoResource {
 		for(long elem : listIdAluno){			
 			alunoResponsavelRepository.deleteById(elem);	
 		}
-		
 		List<AlunoControleAluno> listAlunoControleAluno = alunoControleAlunoRepository.getAlunoControleAlunoByIdList(idAluno);
 		for(AlunoControleAluno thisAlunoControleAluno : listAlunoControleAluno){		
 			alunoControleAlunoRepository.delete(thisAlunoControleAluno);	

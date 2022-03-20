@@ -18,6 +18,7 @@ import javax.persistence.OneToOne;
 import org.hibernate.envers.Audited;
 
 @Entity
+@Audited
 public class Responsavel implements Serializable{
 
 	@Id

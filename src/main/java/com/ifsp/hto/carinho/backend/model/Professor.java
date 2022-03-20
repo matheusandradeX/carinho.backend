@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 import org.hibernate.envers.Audited;
 
 @Entity
+@Audited
 public class Professor  implements Serializable{
 
 	private static final long serialVersionUID = 1L;

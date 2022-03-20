@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ifsp.hto.carinho.backend.util.Utility;
 
 @Entity
+@Audited
 public class ControleAluno implements Serializable {
 
 	private static final long serialVersionUID = 1L;

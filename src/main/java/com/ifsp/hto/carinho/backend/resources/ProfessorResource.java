@@ -30,13 +30,11 @@ public class ProfessorResource {
 		
 	return professorRepository.findAll();
 	}
-	@PostMapping("/professor") 
-	public Professor salva(String nome, String turma )  {
-		
-	Professor professor = new Professor(nome,turma);
-			
-	return professorRepository.save(professor);
 	
+	@PostMapping("/professor") 
+	public Professor salva(String nome, String turma )  {	
+	Professor professor = new Professor(nome,turma);		
+	return professorRepository.save(professor);
 	}
 	
 }

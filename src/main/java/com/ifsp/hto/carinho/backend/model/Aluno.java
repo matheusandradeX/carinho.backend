@@ -36,8 +36,8 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Audited
 public class Aluno implements Serializable {
-
 	
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -58,12 +58,13 @@ public class Aluno implements Serializable {
 	
 	private long carteiraIdentidade;
 
+	@NotAudited
 	@ManyToOne
 	@JoinColumn(name = "fk_escola")
 	private Escola escola;
 	
 	
-
+	@NotAudited
 	@ManyToOne
 	@JoinColumn(name = "fk_turma_id",insertable = true,updatable = true)
 	private Turma turma;

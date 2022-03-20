@@ -10,11 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 import org.springframework.data.annotation.Reference;
 
 
 	
 @Entity
+@Audited
 public class AlunoControleAluno implements Serializable {
 
 		
@@ -23,12 +26,15 @@ public class AlunoControleAluno implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 
+	
 	@OneToOne
 	private Aluno aluno;
 	
+	@NotAudited
 	@OneToOne(cascade = {CascadeType.ALL})
 	private ControleAluno controleAluno;
 
+	@NotAudited
 	@OneToOne
 	@JoinColumn(name = "fk_escola")
 	private Escola escola ;
