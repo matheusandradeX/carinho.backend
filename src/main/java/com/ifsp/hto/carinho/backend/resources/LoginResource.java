@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ifsp.hto.carinho.backend.model.Escola;
 import com.ifsp.hto.carinho.backend.model.Login;
 import com.ifsp.hto.carinho.backend.model.TipoUsuario;
+import com.ifsp.hto.carinho.backend.repository.EscolaRepository;
 import com.ifsp.hto.carinho.backend.repository.LoginRepository;
 import com.ifsp.hto.carinho.backend.util.MD5;
 
@@ -26,7 +28,9 @@ public class LoginResource {
 
 	@Autowired(required = true)
 	LoginRepository loginRepository;
-
+	@Autowired(required = true)
+	EscolaRepository escolaRepository;
+	
 	@GetMapping("login/{id}")
 	public Login listaLogin(@PathVariable(value = "id") long id) {
 		return loginRepository.findById(id);
@@ -52,13 +56,13 @@ public class LoginResource {
 	}
 	
 	@PostMapping("/cadastrarPerfil")
-	public Login cadastrar( String usuario, String senha, String email, TipoUsuario perfil, String nome, String carteiraIdentidade,String cpf) throws NoSuchAlgorithmException {
+	public Login cadastrar( String usuario, String senha, String email, TipoUsuario perfil, String nome, String carteiraIdentidade,String cpf,long idEscola) throws NoSuchAlgorithmException {
 		
-		
+		Escola escola = escolaRepository.findById(idEscola);
 		 String senhaCriptografada = MD5.stringToMD5(senha);  
 		 System.out.println(senhaCriptografada);
 		
-		Login login = new Login(nome, perfil, usuario,senhaCriptografada , email,carteiraIdentidade,cpf);
+		Login login = new Login(nome, perfil, usuario,senhaCriptografada , email,carteiraIdentidade,cpf,escola);
 		
 		return loginRepository.save(login);
 	}

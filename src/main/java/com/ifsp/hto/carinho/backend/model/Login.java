@@ -85,7 +85,7 @@ public class Login implements Serializable {
 		this.email = email;
 	}
 
-	public Login(String nome, TipoUsuario perfil, String usuario, String senha, String email,String carteiraIdentidade,String cpf) {
+	public Login(String nome, TipoUsuario perfil, String usuario, String senha, String email,String carteiraIdentidade,String cpf,Escola escola ) {
 		this.nome = nome;
 		this.perfil = perfil;
 		this.usuario = usuario;
@@ -93,6 +93,7 @@ public class Login implements Serializable {
 		this.email = email;
 		this.carteiraIdentidade = carteiraIdentidade;
 		this.cpf = cpf;
+		this.escola = escola;
 	}
 	public String getCarteiraIdentidade() {
 		return carteiraIdentidade;
