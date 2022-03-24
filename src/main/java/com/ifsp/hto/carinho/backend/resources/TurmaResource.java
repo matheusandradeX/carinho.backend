@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ifsp.hto.carinho.backend.dto.TurmaDTO;
+import com.ifsp.hto.carinho.backend.model.Escola;
 import com.ifsp.hto.carinho.backend.model.Login;
 import com.ifsp.hto.carinho.backend.model.Responsavel;
 import com.ifsp.hto.carinho.backend.model.TipoUsuario;
 import com.ifsp.hto.carinho.backend.model.Turma;
 import com.ifsp.hto.carinho.backend.repository.AlunoRepository;
+import com.ifsp.hto.carinho.backend.repository.EscolaRepository;
 import com.ifsp.hto.carinho.backend.repository.TurmaRepository;
 import com.ifsp.hto.carinho.backend.util.MD5;
 
@@ -32,6 +34,9 @@ public class TurmaResource {
 	@Autowired(required = true)
 	AlunoRepository alunoRepository;
 	
+	@Autowired(required = true)
+	EscolaRepository escolaRepository;
+	
 	@GetMapping("/turmas/escola/{idEscola}")
 	public List<Turma> lista (@PathVariable(value = "idEscola") long idEscola){
 		
@@ -39,7 +44,9 @@ public class TurmaResource {
 	}
 	
 	@PostMapping("/cadastrarTurma")
-	public Turma  cadastro(String numeroTurma, String professorResponsavel){		
+	public Turma  cadastro(String numeroTurma, String professorResponsavel, long idEscola){
+		
+		Escola escola = escolaRepository.findById(idEscola);
 		Turma turma = new Turma(numeroTurma,professorResponsavel);
 		return turmaRepository.save(turma);
 				

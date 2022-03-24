@@ -39,6 +39,8 @@ public class AlunoReponsavelResource {
 	@Autowired(required = true)
 	AlunoRepository alunoRepository;
 	
+	 
+	
 	@GetMapping("/alunoResponsavel")
 	public List<AlunoResponsavel> teste (){
 		
