@@ -38,7 +38,7 @@ Run application
 
 ![image](https://user-images.githubusercontent.com/30836537/174511607-c5b691af-e392-44d1-ab1f-54104b9c3a94.png)
 
-
+Server ON!☑ then open carinho front end and create a new user on Users Page Projeto-Carinho/public_html/pages/Usuarios/index.html 
 
 
 
